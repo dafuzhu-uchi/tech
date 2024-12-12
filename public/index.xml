@@ -1,0 +1,17 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    
+    <title>DafuZhu</title>
+    <description></description>
+    <link>http://localhost:1313/tech/</link>
+    
+    <language>en</language>
+    <copyright>Copyright 2024, Calvin Tran</copyright>
+    <lastBuildDate>Thu, 12 Dec 2024 19:30:57 +0800</lastBuildDate>
+    <generator>Hugo - gohugo.io</generator>
+    <docs>http://cyber.harvard.edu/rss/rss.html</docs>
+    <atom:link href="http://localhost:1313/tech//atom.xml" rel="self" type="application/atom+xml"/>
+    
+    
+  </channel>
+</rss>

@@ -9,11 +9,10 @@ permalinks:
 
 params:
   favicon: "/assets/favicon.ico"
-  description: "A minimal hugo theme focus on content"
   author: "Dafu Zhu"
   comments:
     enabled: true
-    githubRepo: "canhtran/maverick"
+    githubRepo: "FortuneQuant/tech"
     theme: "github-light"
 
 menu:
