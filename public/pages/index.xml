@@ -6,14 +6,14 @@
     <description>Recent content in Pages on DafuZhu</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 12 Dec 2024 19:30:57 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 01 Sep 2023 19:30:57 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tech/pages/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>http://localhost:1313/tech/about/</link>
-      <pubDate>Thu, 12 Dec 2024 19:30:57 +0800</pubDate>
+      <pubDate>Fri, 01 Sep 2023 19:30:57 +0800</pubDate>
       <guid>http://localhost:1313/tech/about/</guid>
-      <description>Writing conventions&#xA;Each project is named following the format:&#xA;[organization]-[project name]#[project number].md For self-initiated projects, I use &amp;ldquo;self&amp;rdquo; as the organization name.</description>
+      <description>Writing conventions&#xA;Each project is named following the format:&#xA;[organization]-[project name]#[project number].md For self-initiated projects, I use &amp;ldquo;self&amp;rdquo; as the organization name.&#xA;Math syntax&#xA;Display math: \[ \] or $$ $$; inline math: \( \)&#xA;e.g. For $i=1,\cdots,l$,&#xA;$$ \omega^{(i)}_n\leftarrow \omega^{(i)}_{n-1}-\alpha\cdot \Delta_{\omega^{(i)}}L(\omega^{(1)}_{n-1},\cdots,\omega^{(l)}_{n-1}) $$</description>
     </item>
   </channel>
 </rss>

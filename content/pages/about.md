@@ -15,3 +15,12 @@ Each project is named following the format:
 
 For self-initiated projects, I use "self" as the organization name.
 
+**Math syntax**
+
+Display math: `\[ \]` or `$$ $$`; inline math: `\( \)`
+
+e.g. For \(i=1,\cdots,l\)
+
+$$
+\omega^{(i)}_n\leftarrow \omega^{(i)}_{n-1}-\alpha\cdot \nabla_{\omega^{(i)}}L(\omega^{(1)}_{n-1},\cdots,\omega^{(l)}_{n-1})
+$$

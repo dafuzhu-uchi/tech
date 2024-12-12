@@ -14,6 +14,7 @@ params:
     enabled: true
     githubRepo: "FortuneQuant/tech"
     theme: "github-light"
+  math: true
 
 menu:
   main:
@@ -25,3 +26,18 @@ menu:
       name: "Post"
       url: "/posts/"
       weight: -200
+
+markup:
+  goldmark:
+    extensions:
+      passthrough:
+        delimiters:
+          block:
+          - - \[
+            - \]
+          - - $$
+            - $$
+          inline:
+          - - \(
+            - \)
+        enable: true
