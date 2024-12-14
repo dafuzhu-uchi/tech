@@ -2,6 +2,7 @@
 title = '2010-2023 Market Resumption'
 date = 2023-11-23T01:11:46+08:00
 draft = false
+tags = ["intern", "cisc"]
 +++
 
 ### Introduction
