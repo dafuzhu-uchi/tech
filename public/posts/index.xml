@@ -6,20 +6,27 @@
     <description>Recent content in Posts on DafuZhu</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 23 Nov 2023 01:11:46 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 02 Feb 2024 02:29:56 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tech/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Test the Validity of a Factor</title>
+      <link>http://localhost:1313/tech/posts/cisc-factortest_3/</link>
+      <pubDate>Fri, 02 Feb 2024 02:29:56 +0800</pubDate>
+      <guid>http://localhost:1313/tech/posts/cisc-factortest_3/</guid>
+      <description>Rank IC test If a factor has a predictive effect on the expected return of the stock, there will be a certain correlation between the factor value of the stock in the current period and the return of the stock in the next period. If we use the Pearson linear correlation coefficient between the two, then the presence of certain outliers may greatly affect the results. Therefore, we will use the more robust Spearman rank correlation coefficient to measure the validity of factors.</description>
+    </item>
+    <item>
       <title>2010-2023 Market Resumption</title>
-      <link>http://localhost:1313/tech/posts/cisc-cluster%232/</link>
+      <link>http://localhost:1313/tech/posts/cisc-cluster_2/</link>
       <pubDate>Thu, 23 Nov 2023 01:11:46 +0800</pubDate>
-      <guid>http://localhost:1313/tech/posts/cisc-cluster%232/</guid>
+      <guid>http://localhost:1313/tech/posts/cisc-cluster_2/</guid>
       <description>Introduction Figure 1, 2010-2023 five indexes relative to the Wind All China A Index&#xA;Source: Wind&#xA;We use K-means algorithm to cluster the daily return data of 28 industry indexes, reduce dimension into five indexes, and do equal weight average of the relative net worth of each industry included. The industry distribution covered by each index is as follows:&#xA;Index 1: Non-ferrous metals, Basic chemical industry, Building materials, Light industrial manufacturing, Machinery, Agriculture, Forestry, Animal husbandry and fishery, Banking, Communications, Media Index 2: Steel, Retail, Transportation Index 3: Home appliances, Food and beverage, Electronic components, Computers Index 4: Petroleum and petrochemicals, Coal, Power and utilities, Construction, Textiles and apparel, Non-bank finance, Real estate Index 5: Power equipment, National defense, Automobiles, Catering and tourism, Medicine From the overall trend point of view, Index 3 and 5 outperform the market for a long time, Index 1 is close to the market, and Index 2 and 4 are weak.</description>
     </item>
     <item>
       <title>The Nobel Foundation</title>
-      <link>http://localhost:1313/tech/posts/cisc-nobel%231/</link>
+      <link>http://localhost:1313/tech/posts/cisc-nobel_1/</link>
       <pubDate>Sun, 17 Sep 2023 19:27:00 +0800</pubDate>
-      <guid>http://localhost:1313/tech/posts/cisc-nobel%231/</guid>
+      <guid>http://localhost:1313/tech/posts/cisc-nobel_1/</guid>
       <description>Introduction of the Nobel Foundation On November 27, 1895, a year before his death, Alfred Nobel signed his famous will, thus fulfilling the goal of his life&amp;rsquo;s work. In his will, Nobel stipulated that his fortune of more than 31 million SEK (about 1.794 billion SEK today) be converted into a fund to be invested in &amp;ldquo;safe securities.&amp;rdquo; The income from the investment will be &amp;ldquo;distributed annually in the form of a prize to those who have brought the greatest benefit to humanity during the previous year.</description>
     </item>
   </channel>

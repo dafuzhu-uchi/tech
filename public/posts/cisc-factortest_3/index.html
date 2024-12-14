@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+  <head><script src="/tech/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=tech/livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Liste - http://localhost:1313/tech/">
+    
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)']]                  
+    }
+  };
+</script>
+    
+    <title>Test the Validity of a Factor | DafuZhu</title>
+    <meta name="description" content="">
+    <meta property="og:url" content="http://localhost:1313/tech/posts/cisc-factortest_3/">
+  <meta property="og:site_name" content="DafuZhu">
+  <meta property="og:title" content="Test the Validity of a Factor">
+  <meta property="og:description" content="This project reproduced the factor validity test part in a report that focuses on the information of heavy stocks under the fund selection, and how to use the data of heavy stocks of the preferred fund to build a stable investment portfolio.
+Rank IC test If a factor has a predictive effect on the expected return of the stock, there will be a certain correlation between the factor value of the stock in the current period and the return of the stock in the next period.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-02-02T02:29:56+08:00">
+    <meta property="article:modified_time" content="2024-02-02T02:29:56+08:00">
+
+    
+  <meta itemprop="name" content="Test the Validity of a Factor">
+  <meta itemprop="description" content="This project reproduced the factor validity test part in a report that focuses on the information of heavy stocks under the fund selection, and how to use the data of heavy stocks of the preferred fund to build a stable investment portfolio.
+Rank IC test If a factor has a predictive effect on the expected return of the stock, there will be a certain correlation between the factor value of the stock in the current period and the return of the stock in the next period.">
+  <meta itemprop="datePublished" content="2024-02-02T02:29:56+08:00">
+  <meta itemprop="dateModified" content="2024-02-02T02:29:56+08:00">
+  <meta itemprop="wordCount" content="735">
+    
+  
+
+
+    <link rel="canonical" href="http://localhost:1313/tech/posts/cisc-factortest_3/">
+    <link rel="icon" href="http://localhost:1313/tech//assets/favicon.ico">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link href="https://www.google-analytics.com" rel="preconnect" crossorigin>
+    <link rel="alternate" type="application/atom+xml" title="DafuZhu" href="http://localhost:1313/tech//atom.xml" />
+    <link rel="alternate" type="application/json" title="DafuZhu" href="http://localhost:1313/tech//feed.json" />
+    <link rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bricolage+Grotesque">
+    
+    
+    <style>*,:after,:before{box-sizing:border-box;padding:0}body{font:1rem/1.5 bricolage grotesque,-apple-system,BlinkMacSystemFont,segoe ui,Helvetica,Arial,sans-serif;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding:2rem;background:#fffdfa;color:#000}.skip-link{position:absolute;top:-40px;left:0;background:#eee;z-index:100}.skip-link:focus{top:0}header{line-height:2;padding-bottom:1.5rem}.link{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:none}.time{font-variant-numeric:tabular-nums;white-space:nowrap}blockquote{border-left:5px solid #eee;padding-left:1rem;margin:0}a,a:visited{color:inherit}a:hover,a.heading-link{text-decoration:none}pre{padding:.5rem;overflow:auto;overflow-x:scroll;overflow-wrap:normal}code,pre{font-family:San Francisco Mono,Monaco,consolas,lucida console,dejavu sans mono,bitstream vera sans mono,monospace;font-size:normal;font-size:small;background:#eee}code{margin:.1rem;border:none}ul{list-style-type:square}ul,ol{padding-left:1.2rem}.list{line-height:2;list-style-type:none;padding-left:0}.list li{padding-bottom:.1rem}.meta{color:#777}.content{max-width:70ch;margin:0 auto}header{line-height:2;display:flex;justify-content:space-between;padding-bottom:1rem}header a{text-decoration:none}header ul{list-style-type:none;padding:0}header li,header a{display:inline}h2.post{padding-top:.5rem}header ul a:first-child{padding-left:1rem}.nav{height:1px;background:#000;content:'';max-width:10%}.list li{display:flex;align-items:baseline}.list li time{flex:initial}.hr-list{margin-top:0;margin-bottom:0;margin-right:.5rem;margin-left:.5rem;height:1px;border:0;border-bottom:1px dotted #ccc;flex:1 0 1rem}.m,hr{border:0;margin:3rem 0}img{max-width:100%;height:auto}.post-date{margin:5% 0}.index-date{color:#9a9a9a}.animate-blink{animation:opacity 1s infinite;opacity:1}@keyframes opacity{0%{opacity:1}50%{opacity:.5}100%{opacity:0}}.tags{display:flex;justify-content:space-between}.tags ul{padding:0;margin:0}.tags li{display:inline}.avatar{height:120px;width:120px;position:relative;margin:-10px 0 0 15px;float:right;border-radius:50%}table{width:100%;border-collapse:collapse}th,td{border:1px solid #ddd;text-align:left;padding:8px}th{background-color:#f2f2f2} </style>
+  
+    
+  
+  
+  <script type="application/ld+json">
+  {
+      "@context": "http://schema.org",
+      "@type": "BlogPosting",
+      "articleSection": "posts",
+      "name": "Test the Validity of a Factor",
+      "headline": "Test the Validity of a Factor",
+      "alternativeHeadline": "",
+      "description": "This project reproduced the factor validity test part in a report that focuses on the information of heavy stocks under the fund selection, and how to use the data of heavy stocks of the preferred fund to build a stable investment portfolio.\nRank IC test If a factor has a predictive effect on the expected return of the stock, there will be a certain correlation between the factor value of the stock in the current period and the return of the stock in the next period.",
+      "inLanguage": "en-us",
+      "isFamilyFriendly": "true",
+      "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "http:\/\/localhost:1313\/tech\/posts\/cisc-factortest_3\/"
+      },
+      "author" : {
+          "@type": "Person",
+          "name": ""
+      },
+      "creator" : {
+          "@type": "Person",
+          "name": ""
+      },
+      "accountablePerson" : {
+          "@type": "Person",
+          "name": ""
+      },
+      "copyrightHolder" : "DafuZhu",
+      "copyrightYear" : "2024",
+      "dateCreated": "2024-02-02T02:29:56.00Z",
+      "datePublished": "2024-02-02T02:29:56.00Z",
+      "dateModified": "2024-02-02T02:29:56.00Z",
+      "publisher":{
+          "@type":"Organization",
+          "name": "DafuZhu",
+          "url": "http://localhost:1313/tech/",
+          "logo": {
+              "@type": "ImageObject",
+              "url": "http:\/\/localhost:1313\/tech\/",
+              "width":"32",
+              "height":"32"
+          }
+      },
+      "image": "http://localhost:1313/tech/",
+      "url" : "http:\/\/localhost:1313\/tech\/posts\/cisc-factortest_3\/",
+      "wordCount" : "735",
+      "genre" : [ ],
+      "keywords" : [ ]
+  }
+  </script>
+  
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to main</a>
+  <main id="main">
+  <div class="content">
+    <header>
+<p style="padding: 0;margin: 0;">
+  <a href="http://localhost:1313/tech/">
+    <b>DafuZhu</b>
+    <span class="text-stone-500 animate-blink">▮</span>
+  </a>
+</p>
+<ul style="padding: 0;margin: 0;">
+  
+  
+  <li class="">
+    <a href="/tech/posts/"><span>Post</span></a>
+    
+  <li class="">
+    <a href="/tech/about/"><span>About</span></a>
+    
+  </li>
+</ul>
+</header>
+<hr class="hr-list" style="padding: 0;margin: 0;">
+    <section>
+      <h2 class="post">Test the Validity of a Factor</h2>
+      <p>This project reproduced the factor validity test part in a report that focuses on the information of heavy stocks under the fund selection, and how to use the data of heavy stocks of the preferred fund to build a stable investment portfolio.</p>
+<h3 id="rank-ic-test">Rank IC test</h3>
+<p>If a factor has a predictive effect on the expected return of the stock, there will be a certain correlation between the factor value of the stock in the current period and the return of the stock in the next period. If we use the Pearson linear correlation coefficient between the two, then the presence of certain outliers may greatly affect the results. Therefore, we will use the more robust Spearman rank correlation coefficient to measure the validity of factors.</p>
+<p>As shown in the figure below, the ranking sequence A is obtained by sorting all stocks according to the factor value of the current period, and the ranking sequence B is obtained by sorting all stocks according to the return of the next period. The larger the absolute value of Rank IC is, the stronger the predictive power of this factor for stock returns is. Generally, we will count the mean, standard deviation and t-statistics of Rank IC in the sample interval to analyze the performance of factors from multiple perspectives such as significance and stability of predictive ability.</p>
+<p><img
+  src="/img/cisc_3_1.png"
+  alt="fig1"
+  loading="lazy"
+  decoding="async"
+  class="full-width"
+/>
+
+</p>
+<p>For stock \(i\) (where \(i=1, \cdots, n\)), denote the <strong>ranks</strong> of the current factor values of stocks as \(f_1, \cdots, f_n\), the <strong>ranks</strong> of the returns of the next period as \(r_1, \cdots, r_n\).</p>
+$$
+\text{RankIC}(f)=corr(A,B)=\frac{cov(\mathbf{A},\mathbf{B})}{\sqrt{var(\mathbf{A})\cdot var(\mathbf{B})}}
+$$<p>where</p>
+$$
+\mathbf{A}=\begin{bmatrix}
+f_1\\
+f_2\\
+\vdots\\
+f_n
+\end{bmatrix},\quad
+\mathbf{B}=\begin{bmatrix}
+r_1\\
+r_2\\
+\vdots\\
+r_n
+\end{bmatrix}
+$$<p>This process can be programmed following the steps.</p>
+<p><strong>Step 1: Create a folder with a structure as below</strong></p>
+<pre tabindex="0"><code>folder
+├── data
+│   ├── factors
+│   └── return
+└── main
+</code></pre><p><strong>Step 2: Add raw data into the &ldquo;data&rdquo; folder</strong></p>
+<ul>
+<li>factors:
+<ul>
+<li><a href="/raw_data/cisc_3(institute_prop).csv">Institute holding proportion</a></li>
+<li><a href="/raw_data/cisc_3(select_ability).csv">Security selecting ability.</a></li>
+<li><a href="/raw_data/cisc_3(fund_share).csv">Fund share</a></li>
+<li><a href="/raw_data/cisc_3(annual_return).csv">Recent annual return</a></li>
+<li><a href="/raw_data/cisc_3(max_drawdown).csv">Max drawdown</a></li>
+</ul>
+</li>
+<li>return: <a href="/raw_data/cisc_3(net_value).csv">Fund&rsquo;s net value</a></li>
+</ul>
+<p><strong>Step 3: Create a <code>.py</code> file under the &ldquo;main&rdquo; folder, with the code below</strong></p>
+<pre tabindex="0"><code>import pandas as pd
+import numpy as np
+import os
+import math
+import scipy.stats as stats
+from scipy.stats import norm
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import matplotlib
+from datetime import datetime
+
+factor_path = r&#39;../data/factors/&#39;
+return_path = r&#39;../data/return/&#39;
+result_dir = r&#39;../result/&#39;
+
+if not os.path.exists(result_dir):
+    os.mkdir(result_dir)
+
+def get_fund_return(n):
+    # Return rate of the next n terms
+    df = pd.read_csv(os.path.join(return_path, &#39;cisc_3(net_value).csv&#39;))
+    df = df.rename(columns={&#39;Unnamed: 0&#39;: &#39;Date&#39;}).set_index(&#39;Date&#39;).fillna(0).astype(float)
+    fund_value = df.copy().shift(n)
+    fund_value_future = df.copy()
+    date = fund_value.index[:-n].tolist()
+    fund_return = fund_value_future / fund_value - 1
+    # Replace infinity by NaN
+    fund_return.replace([np.inf, -np.inf], np.nan, inplace=True)
+    # Delete all NaN
+    fund_return = fund_return.dropna(axis=1, how=&#39;all&#39;)
+    fund_return = fund_return.fillna(0)
+    fund_return = fund_return.iloc[n:,:].reset_index(drop=True)
+    fund_return.index = date
+    return fund_return
+
+# Select the funds whose corresponding annual returns are not all zero as the sample space
+fund_return = get_fund_return(4)
+fund_pool = list(fund_return.columns[fund_return.any()])
+fund_return = fund_return.filter(items=fund_pool)
+quarter_return = get_fund_return(1).filter(items=fund_pool).iloc[:-3, :]
+
+# Read factor values
+factor_csv_list = os.listdir(factor_path)
+factor_csv_list = [x for x in factor_csv_list if x[-3:] == &#34;csv&#34;]
+factor_name_list = [x[:-4] for x in factor_csv_list]
+factor_df_list = []
+for i in range(len(factor_csv_list)):
+    file_path = os.path.join(factor_path, factor_csv_list[i])
+    tmp_factor = pd.read_csv(file_path)
+    tmp_factor.rename(columns={&#39;Unnamed: 0&#39;: &#39;Date&#39;}, inplace=True)
+    tmp_factor = tmp_factor.set_index(&#39;Date&#39;)
+    tmp_factor = tmp_factor.filter(items=fund_pool)
+    tmp_factor.fillna(0, inplace=True)
+    tmp_factor = tmp_factor.astype(str).apply(lambda x: x.str.replace(&#34;,&#34;, &#34;&#34;)).astype(float)
+    print(f&#34;Reading：{factor_name_list[i]}&#34;)
+    factor_df_list.append({factor_name_list[i]: tmp_factor})
+
+# RankIC test
+def get_RankIC(factor_name_list, factor_df_list):
+    # Return of next year
+    ICmean_list = np.zeros(len(factor_name_list))
+    ICstd_list = np.zeros(len(factor_name_list))
+    ICIR_list = np.zeros(len(factor_name_list))
+    average_sample = np.zeros(len(factor_name_list))
+    for i in range(len(factor_name_list)):
+        factor_name = factor_name_list[i]
+        factor_df = factor_df_list[i][factor_name]
+        tmp_corr = np.zeros(factor_df.shape[0])
+        sum_sample = 0
+        for day in range(factor_df.shape[0]):
+            return_series = fund_return.iloc[day, :]
+            factor_series = factor_df.iloc[day, :]
+            # Only keep non-zero columns
+            return_series_nonzero = return_series[return_series != 0]
+            factor_series_nonzero = factor_series[factor_series != 0]
+            # Only keep the shared parts
+            combine = pd.merge(return_series_nonzero, factor_series_nonzero, how=&#39;inner&#39;, left_index=True, right_index=True)
+            return_series_common = combine.iloc[:, 0]
+            factor_series_common = combine.iloc[:, 1]
+            np_return = np.array(return_series_common)
+            np_factor = np.array(factor_series_common)
+            num_sample = len(np_return)
+            sum_sample += num_sample
+            rankic, _ = stats.spearmanr(np_return, np_factor)
+            tmp_corr[day] = 0 if math.isnan(rankic) else rankic
+
+        average_sample[i] = sum_sample / factor_df.shape[0]
+        ICmean = np.mean(tmp_corr)
+        ICstd = np.std(tmp_corr)
+        ICIR = ICmean / ICstd
+        ICmean_list[i] = ICmean
+        ICstd_list[i] = ICstd
+        ICIR_list[i] = ICIR
+
+    IC_summary = pd.DataFrame(
+        [ICmean_list, ICstd_list, ICIR_list, average_sample]
+    )
+    return IC_summary
+
+def summarized_IC(factor_name_list, factor_df_list):
+    col_names = [&#39;ICmean&#39;, &#39;ICstd&#39;, &#39;ICIR&#39;, &#39;AvgSample&#39;]
+    IC_df = get_RankIC(factor_name_list, factor_df_list).T
+    IC_df.columns = col_names
+    IC_df.index = factor_name_list
+    return IC_df
+
+IC_df = summarized_IC(factor_name_list, factor_df_list)
+os.chdir(result_dir)
+IC_df.to_excel(&#34;RankIC.xlsx&#34;)
+</code></pre><h3 id="portfolio-test">Portfolio test</h3>
+<h3 id="reference">Reference</h3>
+<ul>
+<li><a href="/pdf/cisc_3_1.pdf">Research on heavy stock information under fund selection</a></li>
+<li><a href="/pdf/cisc_3_2.pdf">Deep Analysis of Major Factors: Value Reproduction</a></li>
+</ul>
+
+      
+      <div class="post-date">
+        <span class="g time">February 2, 2024 </span> &#8729;
+         
+      </div>
+      
+    </section>
+    
+    
+    <div id="comments">
+      
+<script src="https://utteranc.es/client.js"
+    repo=FortuneQuant/tech
+    issue-term="pathname"
+    theme=github-light
+    crossorigin="anonymous"
+    async>
+</script>
+
+
+    </div>
+    
+    
+  </div>
+</main>
+</body>
+</html>

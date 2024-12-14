@@ -7,7 +7,7 @@
     
     <language>en</language>
     <copyright>Copyright 2024, Calvin Tran</copyright>
-    <lastBuildDate>Thu, 23 Nov 2023 01:11:46 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 02 Feb 2024 02:29:56 +0800</lastBuildDate>
     <generator>Hugo - gohugo.io</generator>
     <docs>http://cyber.harvard.edu/rss/rss.html</docs>
     <atom:link href="http://localhost:1313/tech//atom.xml" rel="self" type="application/atom+xml"/>
@@ -15,7 +15,7 @@
     
     <item>
       <title>2010-2023 Market Resumption</title>
-      <link>http://localhost:1313/tech/posts/cisc-cluster%232/</link>
+      <link>http://localhost:1313/tech/posts/cisc-cluster_2/</link>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
 &lt;p&gt;&lt;em&gt;Figure 1, 2010-2023 five indexes relative to the Wind All China A Index&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img
@@ -37,6 +37,158 @@
 &lt;li&gt;Index 5: Power equipment, National defense, Automobiles, Catering and tourism, Medicine&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;From the overall trend point of view, Index 3 and 5 outperform the market for a long time, Index 1 is close to the market, and Index 2 and 4 are weak. Index 3 and 5 have obvious positive correlation, and Index 2 has negative correlation.&lt;/p&gt;
+&lt;h3 id=&#34;clustering&#34;&gt;Clustering&lt;/h3&gt;
+&lt;p&gt;Raw data: &lt;a href=&#34;http://localhost:1313/tech/raw_data/cisc_2(index_performance).xlsx&#34;&gt;Index performance&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+
+data = pd.read_excel(&amp;#34;cisc_2(index_performance).xlsx&amp;#34;)
+indexes = data.iloc[:,2:]
+back = indexes.iloc[1:,:].reset_index(drop=True)
+front = indexes.iloc[:-1,:].reset_index(drop=True)
+rate = (back - front) / front
+
+rate.loc[-1] = 1
+rate.index = rate.index + 1  # Shift the index by 1 to make room for the new row
+rate.sort_index(inplace=True)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Use K-means algorithm after averaging the daily returns, and set \(k=5\).&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;code = {
+    &amp;#39;CI005001.WI&amp;#39;: &amp;#39;石油石化&amp;#39;,
+    &amp;#39;CI005002.WI&amp;#39;: &amp;#39;煤炭&amp;#39;,
+    &amp;#39;CI005003.WI&amp;#39;: &amp;#39;有色金属&amp;#39;,
+    &amp;#39;CI005004.WI&amp;#39;: &amp;#39;电力及公用事业&amp;#39;,
+    &amp;#39;CI005005.WI&amp;#39;: &amp;#39;钢铁&amp;#39;,
+    &amp;#39;CI005006.WI&amp;#39;: &amp;#39;基础化工&amp;#39;,
+    &amp;#39;CI005007.WI&amp;#39;: &amp;#39;建筑&amp;#39;,
+    &amp;#39;CI005008.WI&amp;#39;: &amp;#39;建材&amp;#39;,
+    &amp;#39;CI005009.WI&amp;#39;: &amp;#39;轻工制造&amp;#39;,
+    &amp;#39;CI005010.WI&amp;#39;: &amp;#39;机械&amp;#39;,
+    &amp;#39;CI005011.WI&amp;#39;: &amp;#39;电力设备&amp;#39;,
+    &amp;#39;CI005012.WI&amp;#39;: &amp;#39;国防军工&amp;#39;,
+    &amp;#39;CI005013.WI&amp;#39;: &amp;#39;汽车&amp;#39;,
+    &amp;#39;CI005014.WI&amp;#39;: &amp;#39;商贸零售&amp;#39;,
+    &amp;#39;CI005015.WI&amp;#39;: &amp;#39;餐饮旅游&amp;#39;,
+    &amp;#39;CI005016.WI&amp;#39;: &amp;#39;家电&amp;#39;,
+    &amp;#39;CI005017.WI&amp;#39;: &amp;#39;纺织服装&amp;#39;,
+    &amp;#39;CI005018.WI&amp;#39;: &amp;#39;医药&amp;#39;,
+    &amp;#39;CI005019.WI&amp;#39;: &amp;#39;食品饮料&amp;#39;,
+    &amp;#39;CI005020.WI&amp;#39;: &amp;#39;农林牧渔&amp;#39;,
+    &amp;#39;CI005021.WI&amp;#39;: &amp;#39;银行&amp;#39;,
+    &amp;#39;CI005022.WI&amp;#39;: &amp;#39;非银行金融&amp;#39;,
+    &amp;#39;CI005023.WI&amp;#39;: &amp;#39;房地产&amp;#39;,
+    &amp;#39;CI005024.WI&amp;#39;: &amp;#39;交通运输&amp;#39;,
+    &amp;#39;CI005025.WI&amp;#39;: &amp;#39;电子元器件&amp;#39;,
+    &amp;#39;CI005026.WI&amp;#39;: &amp;#39;通信&amp;#39;,
+    &amp;#39;CI005027.WI&amp;#39;: &amp;#39;计算机&amp;#39;,
+    &amp;#39;CI005028.WI&amp;#39;: &amp;#39;传媒&amp;#39;
+}
+
+df_code = pd.DataFrame(list(code.items()),columns=[&amp;#39;Code&amp;#39;,&amp;#39;Industry&amp;#39;])
+
+# Model
+rate_mean = pd.DataFrame({&amp;#39;mean&amp;#39;: np.mean(rate,axis=0)})
+# rate_var = pd.DataFrame({&amp;#39;var&amp;#39;: np.var(rate,axis=0)})
+# features = pd.merge(rate_mean,rate_var,left_index=True,right_index=True)
+
+np.random.seed(42)
+k = 5
+kmeans = KMeans(n_clusters=k)
+kmeans.fit(rate_mean)
+# kmeans.fit(features)
+
+labels = kmeans.labels_
+centers = kmeans.cluster_centers_
+
+df_code[&amp;#39;Label&amp;#39;] = labels + 1
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Visualize the result of clustering.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Plot the data points with color-coded clusters
+plt.figure(figsize=(10,6), dpi=500)
+plt.scatter(features[&amp;#39;mean&amp;#39;], features[&amp;#39;var&amp;#39;], c=labels, cmap=&amp;#39;viridis&amp;#39;)
+plt.xlabel(&amp;#39;Mean&amp;#39;)
+plt.ylabel(&amp;#39;Variance&amp;#39;)
+plt.title(&amp;#39;K-means Clustering&amp;#39;)
+plt.legend()
+plt.show()
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img
+  src=&#34;http://localhost:1313/tech/img/cisc_2_6.png&#34;
+  alt=&#34;fig6&#34;
+  loading=&#34;lazy&#34;
+  decoding=&#34;async&#34;
+  class=&#34;full-width&#34;
+/&gt;
+
+&lt;/p&gt;
+&lt;p&gt;Then, calculate the cummulative return of five indices.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cum = indexes / indexes.iloc[0,:]
+
+idx_1_raw = cum.iloc[:,list(np.where(labels == 0)[0])]
+idx_1 = np.mean(idx_1_raw,axis=1)
+
+idx_2_raw = cum.iloc[:,list(np.where(labels == 1)[0])]
+idx_2 = np.mean(idx_2_raw,axis=1)
+
+idx_3_raw = cum.iloc[:,list(np.where(labels == 2)[0])]
+idx_3 = np.mean(idx_3_raw,axis=1)
+
+idx_4_raw = cum.iloc[:,list(np.where(labels == 3)[0])]
+idx_4 = np.mean(idx_4_raw,axis=1)
+
+idx_5_raw = cum.iloc[:,list(np.where(labels == 4)[0])]
+idx_5 = np.mean(idx_5_raw,axis=1)
+
+rate_df = pd.DataFrame(
+    {
+        &amp;#39;Date&amp;#39;: np.array(data.iloc[:,0]),
+        &amp;#39;idx_1&amp;#39;: idx_1,
+        &amp;#39;idx_2&amp;#39;: idx_2,
+        &amp;#39;idx_3&amp;#39;: idx_3,
+        &amp;#39;idx_4&amp;#39;: idx_4,
+        &amp;#39;idx_5&amp;#39;: idx_5
+    }
+)
+rate_df
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Plot the trend of five indices from 2010 to 2023&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;mkt = data.iloc[:,1]
+mkt_cum = mkt / mkt[0]
+
+idx_1_ex = idx_1 / mkt_cum
+idx_2_ex = idx_2 / mkt_cum
+idx_3_ex = idx_3 / mkt_cum
+idx_4_ex = idx_4 / mkt_cum
+idx_5_ex = idx_5 / mkt_cum
+
+ex_df = pd.DataFrame(
+    {
+        &amp;#39;Date&amp;#39;: np.array(data.iloc[:,0]),
+        &amp;#39;idx_1&amp;#39;: idx_1_ex,
+        &amp;#39;idx_2&amp;#39;: idx_2_ex,
+        &amp;#39;idx_3&amp;#39;: idx_3_ex,
+        &amp;#39;idx_4&amp;#39;: idx_4_ex,
+        &amp;#39;idx_5&amp;#39;: idx_5_ex
+    }
+)
+
+plt.figure(figsize=(10,6), dpi=500)
+plt.plot(ex_df[&amp;#39;Date&amp;#39;],ex_df[&amp;#39;idx_1&amp;#39;],label=&amp;#34;idx_1&amp;#34;)
+plt.plot(ex_df[&amp;#39;Date&amp;#39;],ex_df[&amp;#39;idx_2&amp;#39;],label=&amp;#34;idx_2&amp;#34;)
+plt.plot(ex_df[&amp;#39;Date&amp;#39;],ex_df[&amp;#39;idx_3&amp;#39;],label=&amp;#34;idx_3&amp;#34;)
+plt.plot(ex_df[&amp;#39;Date&amp;#39;],ex_df[&amp;#39;idx_4&amp;#39;],label=&amp;#34;idx_4&amp;#34;)
+plt.plot(ex_df[&amp;#39;Date&amp;#39;],ex_df[&amp;#39;idx_5&amp;#39;],label=&amp;#34;idx_5&amp;#34;)
+plt.legend()
+plt.xlabel(&amp;#34;year&amp;#34;)
+plt.ylabel(&amp;#34;excess return&amp;#34;)
+plt.show()
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img
+  src=&#34;http://localhost:1313/tech/img/cisc_2_7.png&#34;
+  alt=&#34;fig7&#34;
+  loading=&#34;lazy&#34;
+  decoding=&#34;async&#34;
+  class=&#34;full-width&#34;
+/&gt;
+
+&lt;/p&gt;
 &lt;h3 id=&#34;resumption-from-2010-to-2015&#34;&gt;Resumption from 2010 to 2015&lt;/h3&gt;
 &lt;p&gt;&lt;em&gt;Figure 2: The five indexes from 2010 to 2015 relative to the Wind All China A Index&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img
@@ -96,13 +248,13 @@
 &lt;p&gt;From the beginning of 2022 to now, Index 4 has reached a higher excess return of 19% relative to the whole market, and the trend of other indexes has stabilized. In the index 4, the excess of coal, petroleum and petrochemical is 55.6% and 26.2%, ranking the top two in the industry. In February 2022, the Russia-Ukraine conflict broke out, and the spot price of coal market showed high volatility due to the combination of factors such as rising international energy prices and landing of new energy facilities. In addition, the central government has introduced high-quality development measures for petroleum and petrochemical industries to help the reform of traditional fossil energy and promote the structural transformation of the petroleum and petrochemical industries.&lt;/p&gt;
 </description>
       <author>Dafu Zhu</author>
-      <guid>http://localhost:1313/tech/posts/cisc-cluster%232/</guid>
+      <guid>http://localhost:1313/tech/posts/cisc-cluster_2/</guid>
       <pubDate>Thu, 23 Nov 2023 01:11:46 +0800</pubDate>
     </item>
     
     <item>
       <title>The Nobel Foundation</title>
-      <link>http://localhost:1313/tech/posts/cisc-nobel%231/</link>
+      <link>http://localhost:1313/tech/posts/cisc-nobel_1/</link>
       <description>&lt;h3 id=&#34;introduction-of-the-nobel-foundation&#34;&gt;Introduction of the Nobel Foundation&lt;/h3&gt;
 &lt;p&gt;On November 27, 1895, a year before his death, Alfred Nobel signed his famous will, thus fulfilling the goal of his life&amp;rsquo;s work. In his will, Nobel stipulated that his fortune of more than 31 million SEK (about 1.794 billion SEK today) be converted into a fund to be invested in &amp;ldquo;safe securities.&amp;rdquo; The income from the investment will be &amp;ldquo;distributed annually in the form of a prize to those who have brought the greatest benefit to humanity during the previous year.&amp;rdquo;&lt;/p&gt;
 &lt;p&gt;The Nobel Foundation is a private organization established in 1900 according to the will. Its initial goal is to ensure the annual Nobel Prize payment. With the evolution of The Times and the development of the Nobel Prize, the Nobel Foundation has emphasized new functions such as protecting the independence of the awarding institutions and developing the intangible assets of the Nobel Prize on the original basis. The investment policy of the foundation is of course crucial to the preservation of the fund, and a good investment policy will also increase the capital and correspondingly increase the bonus amount.&lt;/p&gt;
@@ -162,7 +314,7 @@
 &lt;/ul&gt;
 </description>
       <author>Dafu Zhu</author>
-      <guid>http://localhost:1313/tech/posts/cisc-nobel%231/</guid>
+      <guid>http://localhost:1313/tech/posts/cisc-nobel_1/</guid>
       <pubDate>Sun, 17 Sep 2023 19:27:00 +0800</pubDate>
     </item>
     

@@ -2,7 +2,7 @@
 title = 'The Nobel Foundation'
 date = 2023-09-17T19:27:00+08:00
 draft = false
-tags = ["intern", "cisc"]
+tags = ["intern", "cisc", "2023"]
 +++
 
 ### Introduction of the Nobel Foundation
