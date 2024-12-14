@@ -1,6 +1,6 @@
 +++
 title = 'The Nobel Foundation'
-date = 2024-12-12T19:27:00+08:00
+date = 2023-09-17T19:27:00+08:00
 draft = false
 +++
 
@@ -16,7 +16,7 @@ The asset management evaluation methods of Nobel Fund are divided into short-ter
 
 ## Management scale
 
-![scale](/img/cisc/cisc#1.1.png)
+![scale](/tech/img/cisc/cisc#1.1.png)
 
 In terms of monetary value in 2022, the management scale of the Nobel Foundation was 1.8 billion SEK (Swedish kronor) at the beginning of its foundation in 1901, and has more than tripled to 5.8 billion SEK in 2022. From the data intercepted since 2000, it can be seen from the line chart that its management scale in recent years is relatively stable and has an obvious upward trend.
 
@@ -32,18 +32,22 @@ The proportion of alternative assets in the Nobel Fund is second only to equity 
 
 The Nobel Fund's portfolio includes equity investments, real estate funds, fixed income investments, and alternative assets such as hedge funds. In 2022, for example, its portfolio will consist of 53% equity investments, 9% real estate funds, 17% fixed income investments and 22% alternative assets. The allocations vary from year to year in a small range, such as the 2021 portfolio consisting of 55% equity investments, 8% real estate funds, 16% fixed income investments, 24% alternative assets, and (-2%) deferred currency hedging gains.
 
-![Asset Class Exposure](/img/cisc/cisc#1.2.png)
+![Asset Class Exposure](/tech/img/cisc/cisc#1.2.png)
 
 The Nobel Foundation invests most of its money in equities and alternative assets, reflecting the growth-oriented nature of its portfolio. It spans multiple asset classes, from stable fixed income to risky equity and alternative assets, demonstrating a clear diversification strategy aimed at balancing risk and return. The existence of fixed income assets and cash provides a certain amount of capital safety cushion and liquidity, helping to mitigate possible downside risks in the market.
 
-![Allocation of equity exposure](/img/cisc/cisc#1.3.png)
+![Allocation of equity exposure](/tech/img/cisc/cisc#1.3.png)
 
 As Swedish inflation remains high and interest rates continue to rise due to tight monetary policy, driving up investment costs, the foundation has reduced its holdings of Swedish stocks by about 5% and correspondingly increased its exposure to private equity. Most of the assets are still invested in global equities, reflecting the characteristics of portfolio diversification and hedging against exchange rate movements.
 
-![Allocation of fixed income securities](/img/cisc/cisc#1.4.png)
+![Allocation of fixed income securities](/tech/img/cisc/cisc#1.4.png)
 
 Swedish interest rates rose and Swedish bonds continued to fall in value. So the foundation cut its holdings of Swedish bonds by more than half and increased its cash holdings significantly to build up a precautionary cash reserve.
 
+## Reference
+
+- [THE NOBEL FOUNDATION ANNUAL REPORT 2022](/tech/pdf/cisc#1.1.pdf)
+- [Prize amount](/tech/pdf/cisc#1.2.pdf)
 
 
 
