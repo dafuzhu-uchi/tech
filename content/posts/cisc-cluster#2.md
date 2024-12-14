@@ -168,7 +168,7 @@ ex_df = pd.DataFrame(
     }
 )
 
-plt.figure(figsize=(20,12))
+plt.figure(figsize=(10,6), dpi=500)
 plt.plot(ex_df['Date'],ex_df['idx_1'],label="idx_1")
 plt.plot(ex_df['Date'],ex_df['idx_2'],label="idx_2")
 plt.plot(ex_df['Date'],ex_df['idx_3'],label="idx_3")
@@ -179,6 +179,8 @@ plt.xlabel("year")
 plt.ylabel("excess return")
 plt.show()
 ```
+
+![fig7](/img/cisc_2_7.png)
 
 ### Resumption from 2010 to 2015
 
