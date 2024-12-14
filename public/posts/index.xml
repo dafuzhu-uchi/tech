@@ -6,8 +6,15 @@
     <description>Recent content in Posts on DafuZhu</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 17 Sep 2023 19:27:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 23 Nov 2023 01:11:46 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tech/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2010-2023 Market Resumption</title>
+      <link>http://localhost:1313/tech/posts/cisc-cluster%232/</link>
+      <pubDate>Thu, 23 Nov 2023 01:11:46 +0800</pubDate>
+      <guid>http://localhost:1313/tech/posts/cisc-cluster%232/</guid>
+      <description>Introduction Figure 1, 2010-2023 five indexes relative to the Wind All China A Index&#xA;Source: Wind&#xA;We use K-means algorithm to cluster the daily return data of 28 industry indexes, reduce dimension into five indexes, and do equal weight average of the relative net worth of each industry included. The industry distribution covered by each index is as follows:&#xA;Index 1: Non-ferrous metals, Basic chemical industry, Building materials, Light industrial manufacturing, Machinery, Agriculture, Forestry, Animal husbandry and fishery, Banking, Communications, Media Index 2: Steel, Retail, Transportation Index 3: Home appliances, Food and beverage, Electronic components, Computers Index 4: Petroleum and petrochemicals, Coal, Power and utilities, Construction, Textiles and apparel, Non-bank finance, Real estate Index 5: Power equipment, National defense, Automobiles, Catering and tourism, Medicine From the overall trend point of view, Index 3 and 5 outperform the market for a long time, Index 1 is close to the market, and Index 2 and 4 are weak.</description>
+    </item>
     <item>
       <title>The Nobel Foundation</title>
       <link>http://localhost:1313/tech/posts/cisc-nobel%231/</link>
