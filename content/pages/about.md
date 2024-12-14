@@ -10,7 +10,7 @@ draft = false
 Each project is named following the format:
 
 ```
-[organization]-[project name]#[project number].md
+[organization]-[project name]_[project number].md
 ```
 
 For self-initiated projects, I use "self" as the organization name.
