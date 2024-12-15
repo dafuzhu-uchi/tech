@@ -1,7 +1,7 @@
 +++
 title = 'Test the Validity of a Factor'
 date = 2024-02-02T02:29:56+08:00
-draft = true
+draft = false
 +++
 
 This project reproduced the factor validity test part in a report that focuses on the information of heavy stocks under the fund selection, and how to use the data of heavy stocks of the preferred fund to build a stable investment portfolio.
