@@ -188,6 +188,8 @@ IC_df.to_excel("RankIC.xlsx")
 
 First of all, according to the factor value of the current period, the stocks are divided into five equal weight quantile portfolios, and the returns of the portfolios in the next period are denoted as \(R_1, R_2, \cdots, R_5\) We judge the effectiveness of the factor according to the return \(R_1\sim R_5\) of the long-short combination. If the return of the long-short combination is significantly different from zero, it indicates that the factor is effective. The higher the combination sharpe ratio, the more effective the factor is. However, it is worth noting that since the quantile array method only considers the returns of the two extreme combinations of long and short, and ignores the relevant information of the middle combinations of quantiles, there may be some limitations in the characterization of factor effectiveness.
 
+![fig7](/img/cisc_3_7.png)
+
 Add the following code to `main.py`
 
 ```
