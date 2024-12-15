@@ -59,7 +59,9 @@ folder
   - [Max drawdown](/raw_data/cisc_3(max_drawdown).csv)
 - return: [Fund's net value](/raw_data/cisc_3(net_value).csv)
 
-**Step 3: Create a `.py` file under the "main" folder, with the code below**
+**Step 3: Create a `main.py` file under the "main" folder, with the code below**
+
+Remind that the working directory should be "main" when running this program.
 
 ```
 import pandas as pd
@@ -73,9 +75,9 @@ import matplotlib.dates as mdates
 import matplotlib
 from datetime import datetime
 
-factor_path = r'../data/factors/'
-return_path = r'../data/return/'
-result_dir = r'../result/'
+factor_path = '../data/factors/'
+return_path = '../data/return/'
+result_dir = 'r../esult/'
 
 if not os.path.exists(result_dir):
     os.mkdir(result_dir)
@@ -173,9 +175,109 @@ os.chdir(result_dir)
 IC_df.to_excel("RankIC.xlsx")
 ```
 
+|              | ICmean   |  ICstd    |  ICIR | AvgSample |
+|:--:|:--:|:--:|:--:|:--:|
+|cisc_3(select_ability) |  0.089101 | 0.169185 | 0.526649  |  1038.46|
+|cisc_3(fund_share)  |  -0.096019 | 0.091791 | -1.046066 |   1279.50|
+|cisc_3(max_drawdown) | -0.062207 | 0.200550| -0.310182  |  1270.88|
+|cisc_3(institute_prop) | 0.077228 | 0.117013 | 0.659989 |   1133.38|
+|cisc_3(annual_return) |  0.092428 | 0.146760 | 0.629790  |  1045.56 |
+
 ### Portfolio test
 
+First of all, according to the factor value of the current period, the stocks are divided into five equal weight quantile portfolios, and the returns of the portfolios in the next period are denoted as \(R_1, R_2, \cdots, R_5\) We judge the effectiveness of the factor according to the return \(R_1\sim R_5\) of the long-short combination. If the return of the long-short combination is significantly different from zero, it indicates that the factor is effective. The higher the combination sharpe ratio, the more effective the factor is. However, it is worth noting that since the quantile array method only considers the returns of the two extreme combinations of long and short, and ignores the relevant information of the middle combinations of quantiles, there may be some limitations in the characterization of factor effectiveness.
 
+Add the following code to `main.py`
+
+```
+# Quantile portfolio test
+def quantile_test(IC_df):
+    target_dict = {}
+    for i in range(len(factor_name_list)):
+        # Build a T*5 matrix
+        target = np.zeros([quarter_return.shape[0], 5])
+        factor_name = factor_name_list[i]
+        factor_df = factor_df_list[i][factor_name]
+        IC_mean = IC_df.loc[factor_name, 'ICmean']
+        for day in range(factor_df.shape[0]):
+            factor_value = pd.DataFrame({'factor_value': factor_df.iloc[day, :].tolist()})
+            factor_value = factor_value[factor_value != 0]
+            return_value = pd.DataFrame({'return_value': quarter_return.iloc[day, :].tolist()})
+            return_value = return_value[return_value != 0]
+            if IC_mean > 0:
+                quantile = pd.qcut(factor_value['factor_value'], q=5, labels=False)
+            else:
+                quantile = pd.qcut(-factor_value['factor_value'], q=5, labels=False)
+            quantile_df = pd.concat([factor_value['factor_value'], return_value['return_value'], quantile], axis=1)
+            quantile_df.index = factor_df.columns
+            quantile_df.columns = [factor_name, 'return_value', 'quantile']
+            quantile_df.dropna(inplace=True)
+            quantile_df = quantile_df.sort_values(by='quantile', ascending=True)
+            target[day] = quantile_df.groupby('quantile')['return_value'].mean().tolist()
+
+        tmp = pd.DataFrame(target, columns=['Group 1', 'Group 2',
+                                                       'Group 3', 'Group 4', 'Group 5'], index=quarter_return.index)
+        target_dict[factor_name] = (1 + tmp).cumprod()
+    return target_dict
+
+# Plot portfolio test result
+target = quantile_test(IC_df)
+for factor in factor_name_list:
+    df = target[factor]
+    dates = [datetime.strptime(date_str, '%Y/%m/%d').date() for date_str in df.index.tolist()]
+    for group in df.columns:
+        plt.subplot(1, 2, 1)
+        plt.plot(dates, df[group], label=group)
+        plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+        plt.subplot(1, 2, 2)
+        plt.bar(group, np.mean(df[group]), label=group)
+    plt.legend()
+    plt.title(factor, fontproperties=zhfont1)
+    plt.xlabel('Date')
+    plt.ylabel('Return')
+    plt.show()
+```
+
+![fig2](/img/cisc_3_2.png)
+
+![fig3](/img/cisc_3_3.png)
+
+![fig4](/img/cisc_3_4.png)
+
+![fig5](/img/cisc_3_5.png)
+
+![fig6](/img/cisc_3_6.png)
+
+### Factor composition
+
+Add the following code to `main.py`
+
+```
+def composite(IC_df):
+    weight = IC_df.iloc[:, 0] / sum(IC_df.iloc[:, 0])
+    norm_factor_list = []
+    for i in range(len(factor_name_list)):
+        factor_name = factor_name_list[i]
+        factor_df = factor_df_list[i][factor_name]
+        norm_factor = factor_df.copy()
+        nonzero = norm_factor[norm_factor != 0]
+        # norm_factor[norm_factor != 0] = nonzero.sub(nonzero.mean(axis=1), axis=0).div(nonzero.std(axis=1), axis=0)
+        norm_factor[norm_factor != 0] = nonzero.apply(lambda x: x.rank(pct=True), axis=1)
+        # norm_factor[norm_factor != 0] = norm_factor.apply(lambda x: x.rank(pct=True), axis=1)
+        norm_factor_list.append({factor_name: pd.DataFrame(norm_factor, dtype=float)})
+
+    norm_df = sum([weight[i] * norm_factor_list[i][factor_name_list[i]] for i in range(len(factor_name_list))])
+
+    return norm_df
+
+norm_df = composite(IC_df)
+composed = summarized_IC(['Composite'], [{'Composite': norm_df}])
+print(composed)
+```
+
+|              | ICmean   |  ICstd    |  ICIR | AvgSample |
+|:--:|:--:|:--:|:--:|:--:|
+| Composite |  0.130709 | 0.102025 | 1.281154 | 1280.56 |
 
 ### Reference
 
