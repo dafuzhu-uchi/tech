@@ -14,6 +14,366 @@
     
     
     <item>
+      <title>Test the Validity of a Factor</title>
+      <link>http://localhost:1313/tech/posts/cisc-factortest_3/</link>
+      <description>&lt;p&gt;This project reproduced the factor validity test part in a report that focuses on the information of heavy stocks under the fund selection, and how to use the data of heavy stocks of the preferred fund to build a stable investment portfolio.&lt;/p&gt;
+&lt;h3 id=&#34;rank-ic-test&#34;&gt;Rank IC test&lt;/h3&gt;
+&lt;p&gt;If a factor has a predictive effect on the expected return of the stock, there will be a certain correlation between the factor value of the stock in the current period and the return of the stock in the next period. If we use the Pearson linear correlation coefficient between the two, then the presence of certain outliers may greatly affect the results. Therefore, we will use the more robust Spearman rank correlation coefficient to measure the validity of factors.&lt;/p&gt;
+&lt;p&gt;As shown in the figure below, the ranking sequence A is obtained by sorting all stocks according to the factor value of the current period, and the ranking sequence B is obtained by sorting all stocks according to the return of the next period. The larger the absolute value of Rank IC is, the stronger the predictive power of this factor for stock returns is. Generally, we will count the mean, standard deviation and t-statistics of Rank IC in the sample interval to analyze the performance of factors from multiple perspectives such as significance and stability of predictive ability.&lt;/p&gt;
+&lt;p&gt;&lt;img
+  src=&#34;http://localhost:1313/tech/img/cisc_3_1.png&#34;
+  alt=&#34;fig1&#34;
+  loading=&#34;lazy&#34;
+  decoding=&#34;async&#34;
+  class=&#34;full-width&#34;
+/&gt;
+
+&lt;/p&gt;
+&lt;p&gt;For stock \(i\) (where \(i=1, \cdots, n\)), denote the &lt;strong&gt;ranks&lt;/strong&gt; of the current factor values of stocks as \(f_1, \cdots, f_n\), the &lt;strong&gt;ranks&lt;/strong&gt; of the returns of the next period as \(r_1, \cdots, r_n\).&lt;/p&gt;
+$$
+\text{RankIC}(f)=corr(A,B)=\frac{cov(\mathbf{A},\mathbf{B})}{\sqrt{var(\mathbf{A})\cdot var(\mathbf{B})}}
+$$&lt;p&gt;where&lt;/p&gt;
+$$
+\mathbf{A}=\begin{bmatrix}
+f_1\\
+f_2\\
+\vdots\\
+f_n
+\end{bmatrix},\quad
+\mathbf{B}=\begin{bmatrix}
+r_1\\
+r_2\\
+\vdots\\
+r_n
+\end{bmatrix}
+$$&lt;p&gt;This process can be programmed following the steps.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Step 1: Create a folder with a structure as below&lt;/strong&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;folder
+├── data
+│   ├── factors
+│   └── return
+└── main
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;Step 2: Add raw data into the &amp;ldquo;data&amp;rdquo; folder&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;factors:
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:1313/tech/raw_data/cisc_3(institute_prop).csv&#34;&gt;Institute holding proportion&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:1313/tech/raw_data/cisc_3(select_ability).csv&#34;&gt;Security selecting ability.&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:1313/tech/raw_data/cisc_3(fund_share).csv&#34;&gt;Fund share&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:1313/tech/raw_data/cisc_3(annual_return).csv&#34;&gt;Recent annual return&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:1313/tech/raw_data/cisc_3(max_drawdown).csv&#34;&gt;Max drawdown&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;return: &lt;a href=&#34;http://localhost:1313/tech/raw_data/cisc_3(net_value).csv&#34;&gt;Fund&amp;rsquo;s net value&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Step 3: Create a &lt;code&gt;main.py&lt;/code&gt; file under the &amp;ldquo;main&amp;rdquo; folder, with the code below&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Remind that the working directory should be the root folder when running this program.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;import pandas as pd
+import numpy as np
+import os
+import math
+import scipy.stats as stats
+from scipy.stats import norm
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import matplotlib
+from datetime import datetime
+
+factor_path = &amp;#39;data/factors/&amp;#39;
+return_path = &amp;#39;data/return/&amp;#39;
+result_dir = &amp;#39;result/&amp;#39;
+
+if not os.path.exists(result_dir):
+    os.mkdir(result_dir)
+
+def get_fund_return(n):
+    # Return rate of the next n terms
+    df = pd.read_csv(os.path.join(return_path, &amp;#39;cisc_3(net_value).csv&amp;#39;))
+    df = df.rename(columns={&amp;#39;Unnamed: 0&amp;#39;: &amp;#39;Date&amp;#39;}).set_index(&amp;#39;Date&amp;#39;).fillna(0).astype(float)
+    fund_value = df.copy().shift(n)
+    fund_value_future = df.copy()
+    date = fund_value.index[:-n].tolist()
+    fund_return = fund_value_future / fund_value - 1
+    # Replace infinity by NaN
+    fund_return.replace([np.inf, -np.inf], np.nan, inplace=True)
+    # Delete all NaN
+    fund_return = fund_return.dropna(axis=1, how=&amp;#39;all&amp;#39;)
+    fund_return = fund_return.fillna(0)
+    fund_return = fund_return.iloc[n:,:].reset_index(drop=True)
+    fund_return.index = date
+    return fund_return
+
+# Select the funds whose corresponding annual returns are not all zero as the sample space
+fund_return = get_fund_return(4)
+fund_pool = list(fund_return.columns[fund_return.any()])
+fund_return = fund_return.filter(items=fund_pool)
+quarter_return = get_fund_return(1).filter(items=fund_pool).iloc[:-3, :]
+
+# Read factor values
+factor_csv_list = os.listdir(factor_path)
+factor_csv_list = [x for x in factor_csv_list if x[-3:] == &amp;#34;csv&amp;#34;]
+factor_name_list = [x[:-4] for x in factor_csv_list]
+factor_df_list = []
+for i in range(len(factor_csv_list)):
+    file_path = os.path.join(factor_path, factor_csv_list[i])
+    tmp_factor = pd.read_csv(file_path)
+    tmp_factor.rename(columns={&amp;#39;Unnamed: 0&amp;#39;: &amp;#39;Date&amp;#39;}, inplace=True)
+    tmp_factor = tmp_factor.set_index(&amp;#39;Date&amp;#39;)
+    tmp_factor = tmp_factor.filter(items=fund_pool)
+    tmp_factor.fillna(0, inplace=True)
+    tmp_factor = tmp_factor.astype(str).apply(lambda x: x.str.replace(&amp;#34;,&amp;#34;, &amp;#34;&amp;#34;)).astype(float)
+    print(f&amp;#34;Reading：{factor_name_list[i]}&amp;#34;)
+    factor_df_list.append({factor_name_list[i]: tmp_factor})
+
+# RankIC test
+def get_RankIC(factor_name_list, factor_df_list):
+    # Return of next year
+    ICmean_list = np.zeros(len(factor_name_list))
+    ICstd_list = np.zeros(len(factor_name_list))
+    ICIR_list = np.zeros(len(factor_name_list))
+    average_sample = np.zeros(len(factor_name_list))
+    for i in range(len(factor_name_list)):
+        factor_name = factor_name_list[i]
+        factor_df = factor_df_list[i][factor_name]
+        tmp_corr = np.zeros(factor_df.shape[0])
+        sum_sample = 0
+        for day in range(factor_df.shape[0]):
+            return_series = fund_return.iloc[day, :]
+            factor_series = factor_df.iloc[day, :]
+            # Only keep non-zero columns
+            return_series_nonzero = return_series[return_series != 0]
+            factor_series_nonzero = factor_series[factor_series != 0]
+            # Only keep the shared parts
+            combine = pd.merge(return_series_nonzero, factor_series_nonzero, how=&amp;#39;inner&amp;#39;, left_index=True, right_index=True)
+            return_series_common = combine.iloc[:, 0]
+            factor_series_common = combine.iloc[:, 1]
+            np_return = np.array(return_series_common)
+            np_factor = np.array(factor_series_common)
+            num_sample = len(np_return)
+            sum_sample += num_sample
+            rankic, _ = stats.spearmanr(np_return, np_factor)
+            tmp_corr[day] = 0 if math.isnan(rankic) else rankic
+
+        average_sample[i] = sum_sample / factor_df.shape[0]
+        ICmean = np.mean(tmp_corr)
+        ICstd = np.std(tmp_corr)
+        ICIR = ICmean / ICstd
+        ICmean_list[i] = ICmean
+        ICstd_list[i] = ICstd
+        ICIR_list[i] = ICIR
+
+    IC_summary = pd.DataFrame(
+        [ICmean_list, ICstd_list, ICIR_list, average_sample]
+    )
+    return IC_summary
+
+def summarized_IC(factor_name_list, factor_df_list):
+    col_names = [&amp;#39;ICmean&amp;#39;, &amp;#39;ICstd&amp;#39;, &amp;#39;ICIR&amp;#39;, &amp;#39;AvgSample&amp;#39;]
+    IC_df = get_RankIC(factor_name_list, factor_df_list).T
+    IC_df.columns = col_names
+    IC_df.index = factor_name_list
+    return IC_df
+
+IC_df = summarized_IC(factor_name_list, factor_df_list)
+print(IC_df)
+os.chdir(result_dir)
+IC_df.to_excel(&amp;#34;RankIC.xlsx&amp;#34;)
+&lt;/code&gt;&lt;/pre&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;ICmean&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;ICstd&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;ICIR&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;AvgSample&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;cisc_3(select_ability)&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;0.089101&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;0.169185&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;0.526649&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1038.46&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;cisc_3(fund_share)&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;-0.096019&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;0.091791&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;-1.046066&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1279.50&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;cisc_3(max_drawdown)&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;-0.062207&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;0.200550&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;-0.310182&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1270.88&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;cisc_3(institute_prop)&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;0.077228&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;0.117013&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;0.659989&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1133.38&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;cisc_3(annual_return)&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;0.092428&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;0.146760&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;0.629790&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1045.56&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;portfolio-test&#34;&gt;Portfolio test&lt;/h3&gt;
+&lt;p&gt;First of all, according to the factor value of the current period, the stocks are divided into five equal weight quantile portfolios, and the returns of the portfolios in the next period are denoted as \(R_1, R_2, \cdots, R_5\) We judge the effectiveness of the factor according to the return \(R_1\sim R_5\) of the long-short combination. If the return of the long-short combination is significantly different from zero, it indicates that the factor is effective. The higher the combination sharpe ratio, the more effective the factor is. However, it is worth noting that since the quantile array method only considers the returns of the two extreme combinations of long and short, and ignores the relevant information of the middle combinations of quantiles, there may be some limitations in the characterization of factor effectiveness.&lt;/p&gt;
+&lt;p&gt;Add the following code to &lt;code&gt;main.py&lt;/code&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# Quantile portfolio test
+def quantile_test(IC_df):
+    target_dict = {}
+    for i in range(len(factor_name_list)):
+        # Build a T*5 matrix
+        target = np.zeros([quarter_return.shape[0], 5])
+        factor_name = factor_name_list[i]
+        factor_df = factor_df_list[i][factor_name]
+        IC_mean = IC_df.loc[factor_name, &amp;#39;ICmean&amp;#39;]
+        for day in range(factor_df.shape[0]):
+            factor_value = pd.DataFrame({&amp;#39;factor_value&amp;#39;: factor_df.iloc[day, :].tolist()})
+            factor_value = factor_value[factor_value != 0]
+            return_value = pd.DataFrame({&amp;#39;return_value&amp;#39;: quarter_return.iloc[day, :].tolist()})
+            return_value = return_value[return_value != 0]
+            if IC_mean &amp;gt; 0:
+                quantile = pd.qcut(factor_value[&amp;#39;factor_value&amp;#39;], q=5, labels=False)
+            else:
+                quantile = pd.qcut(-factor_value[&amp;#39;factor_value&amp;#39;], q=5, labels=False)
+            quantile_df = pd.concat([factor_value[&amp;#39;factor_value&amp;#39;], return_value[&amp;#39;return_value&amp;#39;], quantile], axis=1)
+            quantile_df.index = factor_df.columns
+            quantile_df.columns = [factor_name, &amp;#39;return_value&amp;#39;, &amp;#39;quantile&amp;#39;]
+            quantile_df.dropna(inplace=True)
+            quantile_df = quantile_df.sort_values(by=&amp;#39;quantile&amp;#39;, ascending=True)
+            target[day] = quantile_df.groupby(&amp;#39;quantile&amp;#39;)[&amp;#39;return_value&amp;#39;].mean().tolist()
+
+        tmp = pd.DataFrame(target, columns=[&amp;#39;Group 1&amp;#39;, &amp;#39;Group 2&amp;#39;,
+                                                       &amp;#39;Group 3&amp;#39;, &amp;#39;Group 4&amp;#39;, &amp;#39;Group 5&amp;#39;], index=quarter_return.index)
+        target_dict[factor_name] = (1 + tmp).cumprod()
+    return target_dict
+
+# Plot portfolio test result
+target = quantile_test(IC_df)
+for factor in factor_name_list:
+    df = target[factor]
+    dates = [datetime.strptime(date_str, &amp;#39;%Y/%m/%d&amp;#39;).date() for date_str in df.index.tolist()]
+    for group in df.columns:
+        plt.subplot(1, 2, 1)
+        plt.plot(dates, df[group], label=group)
+        plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(&amp;#39;%Y&amp;#39;))
+        plt.subplot(1, 2, 2)
+        plt.bar(group, np.mean(df[group]), label=group)
+    plt.legend()
+    plt.title(factor)
+    plt.xlabel(&amp;#39;Date&amp;#39;)
+    plt.ylabel(&amp;#39;Return&amp;#39;)
+    plt.show()
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img
+  src=&#34;http://localhost:1313/tech/img/cisc_3_2.png&#34;
+  alt=&#34;fig2&#34;
+  loading=&#34;lazy&#34;
+  decoding=&#34;async&#34;
+  class=&#34;full-width&#34;
+/&gt;
+
+&lt;/p&gt;
+&lt;p&gt;&lt;img
+  src=&#34;http://localhost:1313/tech/img/cisc_3_3.png&#34;
+  alt=&#34;fig3&#34;
+  loading=&#34;lazy&#34;
+  decoding=&#34;async&#34;
+  class=&#34;full-width&#34;
+/&gt;
+
+&lt;/p&gt;
+&lt;p&gt;&lt;img
+  src=&#34;http://localhost:1313/tech/img/cisc_3_4.png&#34;
+  alt=&#34;fig4&#34;
+  loading=&#34;lazy&#34;
+  decoding=&#34;async&#34;
+  class=&#34;full-width&#34;
+/&gt;
+
+&lt;/p&gt;
+&lt;p&gt;&lt;img
+  src=&#34;http://localhost:1313/tech/img/cisc_3_5.png&#34;
+  alt=&#34;fig5&#34;
+  loading=&#34;lazy&#34;
+  decoding=&#34;async&#34;
+  class=&#34;full-width&#34;
+/&gt;
+
+&lt;/p&gt;
+&lt;p&gt;&lt;img
+  src=&#34;http://localhost:1313/tech/img/cisc_3_6.png&#34;
+  alt=&#34;fig6&#34;
+  loading=&#34;lazy&#34;
+  decoding=&#34;async&#34;
+  class=&#34;full-width&#34;
+/&gt;
+
+&lt;/p&gt;
+&lt;h3 id=&#34;factor-composition&#34;&gt;Factor composition&lt;/h3&gt;
+&lt;p&gt;Add the following code to &lt;code&gt;main.py&lt;/code&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;def composite(IC_df):
+    weight = IC_df.iloc[:, 0] / sum(IC_df.iloc[:, 0])
+    norm_factor_list = []
+    for i in range(len(factor_name_list)):
+        factor_name = factor_name_list[i]
+        factor_df = factor_df_list[i][factor_name]
+        norm_factor = factor_df.copy()
+        nonzero = norm_factor[norm_factor != 0]
+        # norm_factor[norm_factor != 0] = nonzero.sub(nonzero.mean(axis=1), axis=0).div(nonzero.std(axis=1), axis=0)
+        norm_factor[norm_factor != 0] = nonzero.apply(lambda x: x.rank(pct=True), axis=1)
+        # norm_factor[norm_factor != 0] = norm_factor.apply(lambda x: x.rank(pct=True), axis=1)
+        norm_factor_list.append({factor_name: pd.DataFrame(norm_factor, dtype=float)})
+
+    norm_df = sum([weight[i] * norm_factor_list[i][factor_name_list[i]] for i in range(len(factor_name_list))])
+
+    return norm_df
+
+norm_df = composite(IC_df)
+composed = summarized_IC([&amp;#39;Composite&amp;#39;], [{&amp;#39;Composite&amp;#39;: norm_df}])
+print(composed)
+&lt;/code&gt;&lt;/pre&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;ICmean&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;ICstd&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;ICIR&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;AvgSample&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Composite&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;0.130709&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;0.102025&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1.281154&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;1280.56&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;reference&#34;&gt;Reference&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:1313/tech/pdf/cisc_3_1.pdf&#34;&gt;Research on heavy stock information under fund selection&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://localhost:1313/tech/pdf/cisc_3_2.pdf&#34;&gt;Deep Analysis of Major Factors: Value Reproduction&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+      <author>Dafu Zhu</author>
+      <guid>http://localhost:1313/tech/posts/cisc-factortest_3/</guid>
+      <pubDate>Fri, 02 Feb 2024 02:29:56 +0800</pubDate>
+    </item>
+    
+    <item>
       <title>2010-2023 Market Resumption</title>
       <link>http://localhost:1313/tech/posts/cisc-cluster_2/</link>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;

@@ -13,7 +13,7 @@
       <link>http://localhost:1313/tech/posts/cisc-factortest_3/</link>
       <pubDate>Fri, 02 Feb 2024 02:29:56 +0800</pubDate>
       <guid>http://localhost:1313/tech/posts/cisc-factortest_3/</guid>
-      <description>Rank IC test If a factor has a predictive effect on the expected return of the stock, there will be a certain correlation between the factor value of the stock in the current period and the return of the stock in the next period. If we use the Pearson linear correlation coefficient between the two, then the presence of certain outliers may greatly affect the results. Therefore, we will use the more robust Spearman rank correlation coefficient to measure the validity of factors.</description>
+      <description>This project reproduced the factor validity test part in a report that focuses on the information of heavy stocks under the fund selection, and how to use the data of heavy stocks of the preferred fund to build a stable investment portfolio.&#xA;Rank IC test If a factor has a predictive effect on the expected return of the stock, there will be a certain correlation between the factor value of the stock in the current period and the return of the stock in the next period.</description>
     </item>
     <item>
       <title>2010-2023 Market Resumption</title>

@@ -61,7 +61,7 @@ folder
 
 **Step 3: Create a `main.py` file under the "main" folder, with the code below**
 
-Remind that the working directory should be "main" when running this program.
+Remind that the working directory should be the root folder when running this program.
 
 ```
 import pandas as pd
@@ -75,9 +75,9 @@ import matplotlib.dates as mdates
 import matplotlib
 from datetime import datetime
 
-factor_path = '../data/factors/'
-return_path = '../data/return/'
-result_dir = 'r../esult/'
+factor_path = 'data/factors/'
+return_path = 'data/return/'
+result_dir = 'result/'
 
 if not os.path.exists(result_dir):
     os.mkdir(result_dir)
@@ -171,6 +171,7 @@ def summarized_IC(factor_name_list, factor_df_list):
     return IC_df
 
 IC_df = summarized_IC(factor_name_list, factor_df_list)
+print(IC_df)
 os.chdir(result_dir)
 IC_df.to_excel("RankIC.xlsx")
 ```
@@ -232,7 +233,7 @@ for factor in factor_name_list:
         plt.subplot(1, 2, 2)
         plt.bar(group, np.mean(df[group]), label=group)
     plt.legend()
-    plt.title(factor, fontproperties=zhfont1)
+    plt.title(factor)
     plt.xlabel('Date')
     plt.ylabel('Return')
     plt.show()

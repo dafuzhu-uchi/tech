@@ -15,6 +15,10 @@ params:
     githubRepo: "FortuneQuant/tech"
     theme: "github-light"
   math: true
+  custom_css:
+    - "css/copy-button.css"
+  custom_js:
+    - "js/copy-code-button.js"
 
 menu:
   main:

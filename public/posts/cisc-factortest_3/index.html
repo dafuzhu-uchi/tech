@@ -35,11 +35,12 @@ Rank IC test If a factor has a predictive effect on the expected return of the s
 Rank IC test If a factor has a predictive effect on the expected return of the stock, there will be a certain correlation between the factor value of the stock in the current period and the return of the stock in the next period.">
   <meta itemprop="datePublished" content="2024-02-02T02:29:56+08:00">
   <meta itemprop="dateModified" content="2024-02-02T02:29:56+08:00">
-  <meta itemprop="wordCount" content="735">
+  <meta itemprop="wordCount" content="1172">
     
   
 
 
+    
     <link rel="canonical" href="http://localhost:1313/tech/posts/cisc-factortest_3/">
     <link rel="icon" href="http://localhost:1313/tech//assets/favicon.ico">
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
@@ -100,7 +101,7 @@ Rank IC test If a factor has a predictive effect on the expected return of the s
       },
       "image": "http://localhost:1313/tech/",
       "url" : "http:\/\/localhost:1313\/tech\/posts\/cisc-factortest_3\/",
-      "wordCount" : "735",
+      "wordCount" : "1172",
       "genre" : [ ],
       "keywords" : [ ]
   }
@@ -184,7 +185,8 @@ $$<p>This process can be programmed following the steps.</p>
 </li>
 <li>return: <a href="/raw_data/cisc_3(net_value).csv">Fund&rsquo;s net value</a></li>
 </ul>
-<p><strong>Step 3: Create a <code>.py</code> file under the &ldquo;main&rdquo; folder, with the code below</strong></p>
+<p><strong>Step 3: Create a <code>main.py</code> file under the &ldquo;main&rdquo; folder, with the code below</strong></p>
+<p>Remind that the working directory should be the root folder when running this program.</p>
 <pre tabindex="0"><code>import pandas as pd
 import numpy as np
 import os
@@ -196,9 +198,9 @@ import matplotlib.dates as mdates
 import matplotlib
 from datetime import datetime
 
-factor_path = r&#39;../data/factors/&#39;
-return_path = r&#39;../data/return/&#39;
-result_dir = r&#39;../result/&#39;
+factor_path = &#39;data/factors/&#39;
+return_path = &#39;data/return/&#39;
+result_dir = &#39;result/&#39;
 
 if not os.path.exists(result_dir):
     os.mkdir(result_dir)
@@ -292,9 +294,193 @@ def summarized_IC(factor_name_list, factor_df_list):
     return IC_df
 
 IC_df = summarized_IC(factor_name_list, factor_df_list)
+print(IC_df)
 os.chdir(result_dir)
 IC_df.to_excel(&#34;RankIC.xlsx&#34;)
-</code></pre><h3 id="portfolio-test">Portfolio test</h3>
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">ICmean</th>
+<th style="text-align:center">ICstd</th>
+<th style="text-align:center">ICIR</th>
+<th style="text-align:center">AvgSample</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">cisc_3(select_ability)</td>
+<td style="text-align:center">0.089101</td>
+<td style="text-align:center">0.169185</td>
+<td style="text-align:center">0.526649</td>
+<td style="text-align:center">1038.46</td>
+</tr>
+<tr>
+<td style="text-align:center">cisc_3(fund_share)</td>
+<td style="text-align:center">-0.096019</td>
+<td style="text-align:center">0.091791</td>
+<td style="text-align:center">-1.046066</td>
+<td style="text-align:center">1279.50</td>
+</tr>
+<tr>
+<td style="text-align:center">cisc_3(max_drawdown)</td>
+<td style="text-align:center">-0.062207</td>
+<td style="text-align:center">0.200550</td>
+<td style="text-align:center">-0.310182</td>
+<td style="text-align:center">1270.88</td>
+</tr>
+<tr>
+<td style="text-align:center">cisc_3(institute_prop)</td>
+<td style="text-align:center">0.077228</td>
+<td style="text-align:center">0.117013</td>
+<td style="text-align:center">0.659989</td>
+<td style="text-align:center">1133.38</td>
+</tr>
+<tr>
+<td style="text-align:center">cisc_3(annual_return)</td>
+<td style="text-align:center">0.092428</td>
+<td style="text-align:center">0.146760</td>
+<td style="text-align:center">0.629790</td>
+<td style="text-align:center">1045.56</td>
+</tr>
+</tbody>
+</table>
+<h3 id="portfolio-test">Portfolio test</h3>
+<p>First of all, according to the factor value of the current period, the stocks are divided into five equal weight quantile portfolios, and the returns of the portfolios in the next period are denoted as \(R_1, R_2, \cdots, R_5\) We judge the effectiveness of the factor according to the return \(R_1\sim R_5\) of the long-short combination. If the return of the long-short combination is significantly different from zero, it indicates that the factor is effective. The higher the combination sharpe ratio, the more effective the factor is. However, it is worth noting that since the quantile array method only considers the returns of the two extreme combinations of long and short, and ignores the relevant information of the middle combinations of quantiles, there may be some limitations in the characterization of factor effectiveness.</p>
+<p>Add the following code to <code>main.py</code></p>
+<pre tabindex="0"><code># Quantile portfolio test
+def quantile_test(IC_df):
+    target_dict = {}
+    for i in range(len(factor_name_list)):
+        # Build a T*5 matrix
+        target = np.zeros([quarter_return.shape[0], 5])
+        factor_name = factor_name_list[i]
+        factor_df = factor_df_list[i][factor_name]
+        IC_mean = IC_df.loc[factor_name, &#39;ICmean&#39;]
+        for day in range(factor_df.shape[0]):
+            factor_value = pd.DataFrame({&#39;factor_value&#39;: factor_df.iloc[day, :].tolist()})
+            factor_value = factor_value[factor_value != 0]
+            return_value = pd.DataFrame({&#39;return_value&#39;: quarter_return.iloc[day, :].tolist()})
+            return_value = return_value[return_value != 0]
+            if IC_mean &gt; 0:
+                quantile = pd.qcut(factor_value[&#39;factor_value&#39;], q=5, labels=False)
+            else:
+                quantile = pd.qcut(-factor_value[&#39;factor_value&#39;], q=5, labels=False)
+            quantile_df = pd.concat([factor_value[&#39;factor_value&#39;], return_value[&#39;return_value&#39;], quantile], axis=1)
+            quantile_df.index = factor_df.columns
+            quantile_df.columns = [factor_name, &#39;return_value&#39;, &#39;quantile&#39;]
+            quantile_df.dropna(inplace=True)
+            quantile_df = quantile_df.sort_values(by=&#39;quantile&#39;, ascending=True)
+            target[day] = quantile_df.groupby(&#39;quantile&#39;)[&#39;return_value&#39;].mean().tolist()
+
+        tmp = pd.DataFrame(target, columns=[&#39;Group 1&#39;, &#39;Group 2&#39;,
+                                                       &#39;Group 3&#39;, &#39;Group 4&#39;, &#39;Group 5&#39;], index=quarter_return.index)
+        target_dict[factor_name] = (1 + tmp).cumprod()
+    return target_dict
+
+# Plot portfolio test result
+target = quantile_test(IC_df)
+for factor in factor_name_list:
+    df = target[factor]
+    dates = [datetime.strptime(date_str, &#39;%Y/%m/%d&#39;).date() for date_str in df.index.tolist()]
+    for group in df.columns:
+        plt.subplot(1, 2, 1)
+        plt.plot(dates, df[group], label=group)
+        plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(&#39;%Y&#39;))
+        plt.subplot(1, 2, 2)
+        plt.bar(group, np.mean(df[group]), label=group)
+    plt.legend()
+    plt.title(factor)
+    plt.xlabel(&#39;Date&#39;)
+    plt.ylabel(&#39;Return&#39;)
+    plt.show()
+</code></pre><p><img
+  src="/img/cisc_3_2.png"
+  alt="fig2"
+  loading="lazy"
+  decoding="async"
+  class="full-width"
+/>
+
+</p>
+<p><img
+  src="/img/cisc_3_3.png"
+  alt="fig3"
+  loading="lazy"
+  decoding="async"
+  class="full-width"
+/>
+
+</p>
+<p><img
+  src="/img/cisc_3_4.png"
+  alt="fig4"
+  loading="lazy"
+  decoding="async"
+  class="full-width"
+/>
+
+</p>
+<p><img
+  src="/img/cisc_3_5.png"
+  alt="fig5"
+  loading="lazy"
+  decoding="async"
+  class="full-width"
+/>
+
+</p>
+<p><img
+  src="/img/cisc_3_6.png"
+  alt="fig6"
+  loading="lazy"
+  decoding="async"
+  class="full-width"
+/>
+
+</p>
+<h3 id="factor-composition">Factor composition</h3>
+<p>Add the following code to <code>main.py</code></p>
+<pre tabindex="0"><code>def composite(IC_df):
+    weight = IC_df.iloc[:, 0] / sum(IC_df.iloc[:, 0])
+    norm_factor_list = []
+    for i in range(len(factor_name_list)):
+        factor_name = factor_name_list[i]
+        factor_df = factor_df_list[i][factor_name]
+        norm_factor = factor_df.copy()
+        nonzero = norm_factor[norm_factor != 0]
+        # norm_factor[norm_factor != 0] = nonzero.sub(nonzero.mean(axis=1), axis=0).div(nonzero.std(axis=1), axis=0)
+        norm_factor[norm_factor != 0] = nonzero.apply(lambda x: x.rank(pct=True), axis=1)
+        # norm_factor[norm_factor != 0] = norm_factor.apply(lambda x: x.rank(pct=True), axis=1)
+        norm_factor_list.append({factor_name: pd.DataFrame(norm_factor, dtype=float)})
+
+    norm_df = sum([weight[i] * norm_factor_list[i][factor_name_list[i]] for i in range(len(factor_name_list))])
+
+    return norm_df
+
+norm_df = composite(IC_df)
+composed = summarized_IC([&#39;Composite&#39;], [{&#39;Composite&#39;: norm_df}])
+print(composed)
+</code></pre><table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">ICmean</th>
+<th style="text-align:center">ICstd</th>
+<th style="text-align:center">ICIR</th>
+<th style="text-align:center">AvgSample</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Composite</td>
+<td style="text-align:center">0.130709</td>
+<td style="text-align:center">0.102025</td>
+<td style="text-align:center">1.281154</td>
+<td style="text-align:center">1280.56</td>
+</tr>
+</tbody>
+</table>
 <h3 id="reference">Reference</h3>
 <ul>
 <li><a href="/pdf/cisc_3_1.pdf">Research on heavy stock information under fund selection</a></li>
@@ -325,6 +511,9 @@ IC_df.to_excel(&#34;RankIC.xlsx&#34;)
     
     
   </div>
-</main>
+  </main>
+  <script type="text/javascript" src="http://localhost:1313/tech/js/copy-code-button.js"></script>
+  
+    <link rel="stylesheet" href="http://localhost:1313/tech/css/copy-button.css">
 </body>
 </html>
