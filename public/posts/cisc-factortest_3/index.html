@@ -28,6 +28,10 @@ Rank IC test If a factor has a predictive effect on the expected return of the s
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2024-02-02T02:29:56+08:00">
     <meta property="article:modified_time" content="2024-02-02T02:29:56+08:00">
+    <meta property="article:tag" content="Intern">
+    <meta property="article:tag" content="Cisc">
+    <meta property="article:tag" content="2024">
+    <meta property="article:tag" content="Factor">
 
     
   <meta itemprop="name" content="Test the Validity of a Factor">
@@ -35,7 +39,8 @@ Rank IC test If a factor has a predictive effect on the expected return of the s
 Rank IC test If a factor has a predictive effect on the expected return of the stock, there will be a certain correlation between the factor value of the stock in the current period and the return of the stock in the next period.">
   <meta itemprop="datePublished" content="2024-02-02T02:29:56+08:00">
   <meta itemprop="dateModified" content="2024-02-02T02:29:56+08:00">
-  <meta itemprop="wordCount" content="1172">
+  <meta itemprop="wordCount" content="1155">
+  <meta itemprop="keywords" content="Intern,Cisc,2024,Factor">
     
   
 
@@ -49,6 +54,7 @@ Rank IC test If a factor has a predictive effect on the expected return of the s
     <link rel="alternate" type="application/json" title="DafuZhu" href="http://localhost:1313/tech//feed.json" />
     <link rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bricolage+Grotesque">
+    
     
     
     <style>*,:after,:before{box-sizing:border-box;padding:0}body{font:1rem/1.5 bricolage grotesque,-apple-system,BlinkMacSystemFont,segoe ui,Helvetica,Arial,sans-serif;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding:2rem;background:#fffdfa;color:#000}.skip-link{position:absolute;top:-40px;left:0;background:#eee;z-index:100}.skip-link:focus{top:0}header{line-height:2;padding-bottom:1.5rem}.link{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:none}.time{font-variant-numeric:tabular-nums;white-space:nowrap}blockquote{border-left:5px solid #eee;padding-left:1rem;margin:0}a,a:visited{color:inherit}a:hover,a.heading-link{text-decoration:none}pre{padding:.5rem;overflow:auto;overflow-x:scroll;overflow-wrap:normal}code,pre{font-family:San Francisco Mono,Monaco,consolas,lucida console,dejavu sans mono,bitstream vera sans mono,monospace;font-size:normal;font-size:small;background:#eee}code{margin:.1rem;border:none}ul{list-style-type:square}ul,ol{padding-left:1.2rem}.list{line-height:2;list-style-type:none;padding-left:0}.list li{padding-bottom:.1rem}.meta{color:#777}.content{max-width:70ch;margin:0 auto}header{line-height:2;display:flex;justify-content:space-between;padding-bottom:1rem}header a{text-decoration:none}header ul{list-style-type:none;padding:0}header li,header a{display:inline}h2.post{padding-top:.5rem}header ul a:first-child{padding-left:1rem}.nav{height:1px;background:#000;content:'';max-width:10%}.list li{display:flex;align-items:baseline}.list li time{flex:initial}.hr-list{margin-top:0;margin-bottom:0;margin-right:.5rem;margin-left:.5rem;height:1px;border:0;border-bottom:1px dotted #ccc;flex:1 0 1rem}.m,hr{border:0;margin:3rem 0}img{max-width:100%;height:auto}.post-date{margin:5% 0}.index-date{color:#9a9a9a}.animate-blink{animation:opacity 1s infinite;opacity:1}@keyframes opacity{0%{opacity:1}50%{opacity:.5}100%{opacity:0}}.tags{display:flex;justify-content:space-between}.tags ul{padding:0;margin:0}.tags li{display:inline}.avatar{height:120px;width:120px;position:relative;margin:-10px 0 0 15px;float:right;border-radius:50%}table{width:100%;border-collapse:collapse}th,td{border:1px solid #ddd;text-align:left;padding:8px}th{background-color:#f2f2f2} </style>
@@ -101,9 +107,9 @@ Rank IC test If a factor has a predictive effect on the expected return of the s
       },
       "image": "http://localhost:1313/tech/",
       "url" : "http:\/\/localhost:1313\/tech\/posts\/cisc-factortest_3\/",
-      "wordCount" : "1172",
-      "genre" : [ ],
-      "keywords" : [ ]
+      "wordCount" : "1155",
+      "genre" : [ "intern" , "cisc" , "2024" , "factor" ],
+      "keywords" : [ "intern" , "cisc" , "2024" , "factor" ]
   }
   </script>
   
@@ -167,12 +173,12 @@ r_n
 \end{bmatrix}
 $$<p>This process can be programmed following the steps.</p>
 <p><strong>Step 1: Create a folder with a structure as below</strong></p>
-<pre tabindex="0"><code>folder
-├── data
-│   ├── factors
-│   └── return
-└── main
-</code></pre><p><strong>Step 2: Add raw data into the &ldquo;data&rdquo; folder</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-plain" data-lang="plain"><span style="display:flex;"><span>folder
+</span></span><span style="display:flex;"><span>├── data
+</span></span><span style="display:flex;"><span>│   ├── factors
+</span></span><span style="display:flex;"><span>│   └── return
+</span></span><span style="display:flex;"><span>└── main
+</span></span></code></pre></div><p><strong>Step 2: Add raw data into the &ldquo;data&rdquo; folder</strong></p>
 <ul>
 <li>factors:
 <ul>
@@ -187,117 +193,118 @@ $$<p>This process can be programmed following the steps.</p>
 </ul>
 <p><strong>Step 3: Create a <code>main.py</code> file under the &ldquo;main&rdquo; folder, with the code below</strong></p>
 <p>Remind that the working directory should be the root folder when running this program.</p>
-<pre tabindex="0"><code>import pandas as pd
-import numpy as np
-import os
-import math
-import scipy.stats as stats
-from scipy.stats import norm
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
-import matplotlib
-from datetime import datetime
-
-factor_path = &#39;data/factors/&#39;
-return_path = &#39;data/return/&#39;
-result_dir = &#39;result/&#39;
-
-if not os.path.exists(result_dir):
-    os.mkdir(result_dir)
-
-def get_fund_return(n):
-    # Return rate of the next n terms
-    df = pd.read_csv(os.path.join(return_path, &#39;cisc_3(net_value).csv&#39;))
-    df = df.rename(columns={&#39;Unnamed: 0&#39;: &#39;Date&#39;}).set_index(&#39;Date&#39;).fillna(0).astype(float)
-    fund_value = df.copy().shift(n)
-    fund_value_future = df.copy()
-    date = fund_value.index[:-n].tolist()
-    fund_return = fund_value_future / fund_value - 1
-    # Replace infinity by NaN
-    fund_return.replace([np.inf, -np.inf], np.nan, inplace=True)
-    # Delete all NaN
-    fund_return = fund_return.dropna(axis=1, how=&#39;all&#39;)
-    fund_return = fund_return.fillna(0)
-    fund_return = fund_return.iloc[n:,:].reset_index(drop=True)
-    fund_return.index = date
-    return fund_return
-
-# Select the funds whose corresponding annual returns are not all zero as the sample space
-fund_return = get_fund_return(4)
-fund_pool = list(fund_return.columns[fund_return.any()])
-fund_return = fund_return.filter(items=fund_pool)
-quarter_return = get_fund_return(1).filter(items=fund_pool).iloc[:-3, :]
-
-# Read factor values
-factor_csv_list = os.listdir(factor_path)
-factor_csv_list = [x for x in factor_csv_list if x[-3:] == &#34;csv&#34;]
-factor_name_list = [x[:-4] for x in factor_csv_list]
-factor_df_list = []
-for i in range(len(factor_csv_list)):
-    file_path = os.path.join(factor_path, factor_csv_list[i])
-    tmp_factor = pd.read_csv(file_path)
-    tmp_factor.rename(columns={&#39;Unnamed: 0&#39;: &#39;Date&#39;}, inplace=True)
-    tmp_factor = tmp_factor.set_index(&#39;Date&#39;)
-    tmp_factor = tmp_factor.filter(items=fund_pool)
-    tmp_factor.fillna(0, inplace=True)
-    tmp_factor = tmp_factor.astype(str).apply(lambda x: x.str.replace(&#34;,&#34;, &#34;&#34;)).astype(float)
-    print(f&#34;Reading：{factor_name_list[i]}&#34;)
-    factor_df_list.append({factor_name_list[i]: tmp_factor})
-
-# RankIC test
-def get_RankIC(factor_name_list, factor_df_list):
-    # Return of next year
-    ICmean_list = np.zeros(len(factor_name_list))
-    ICstd_list = np.zeros(len(factor_name_list))
-    ICIR_list = np.zeros(len(factor_name_list))
-    average_sample = np.zeros(len(factor_name_list))
-    for i in range(len(factor_name_list)):
-        factor_name = factor_name_list[i]
-        factor_df = factor_df_list[i][factor_name]
-        tmp_corr = np.zeros(factor_df.shape[0])
-        sum_sample = 0
-        for day in range(factor_df.shape[0]):
-            return_series = fund_return.iloc[day, :]
-            factor_series = factor_df.iloc[day, :]
-            # Only keep non-zero columns
-            return_series_nonzero = return_series[return_series != 0]
-            factor_series_nonzero = factor_series[factor_series != 0]
-            # Only keep the shared parts
-            combine = pd.merge(return_series_nonzero, factor_series_nonzero, how=&#39;inner&#39;, left_index=True, right_index=True)
-            return_series_common = combine.iloc[:, 0]
-            factor_series_common = combine.iloc[:, 1]
-            np_return = np.array(return_series_common)
-            np_factor = np.array(factor_series_common)
-            num_sample = len(np_return)
-            sum_sample += num_sample
-            rankic, _ = stats.spearmanr(np_return, np_factor)
-            tmp_corr[day] = 0 if math.isnan(rankic) else rankic
-
-        average_sample[i] = sum_sample / factor_df.shape[0]
-        ICmean = np.mean(tmp_corr)
-        ICstd = np.std(tmp_corr)
-        ICIR = ICmean / ICstd
-        ICmean_list[i] = ICmean
-        ICstd_list[i] = ICstd
-        ICIR_list[i] = ICIR
-
-    IC_summary = pd.DataFrame(
-        [ICmean_list, ICstd_list, ICIR_list, average_sample]
-    )
-    return IC_summary
-
-def summarized_IC(factor_name_list, factor_df_list):
-    col_names = [&#39;ICmean&#39;, &#39;ICstd&#39;, &#39;ICIR&#39;, &#39;AvgSample&#39;]
-    IC_df = get_RankIC(factor_name_list, factor_df_list).T
-    IC_df.columns = col_names
-    IC_df.index = factor_name_list
-    return IC_df
-
-IC_df = summarized_IC(factor_name_list, factor_df_list)
-print(IC_df)
-os.chdir(result_dir)
-IC_df.to_excel(&#34;RankIC.xlsx&#34;)
-</code></pre><table>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">pandas</span> <span style="color:#00a8c8">as</span> <span style="color:#111">pd</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">numpy</span> <span style="color:#00a8c8">as</span> <span style="color:#111">np</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">os</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">math</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">scipy.stats</span> <span style="color:#00a8c8">as</span> <span style="color:#111">stats</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> <span style="color:#111">scipy.stats</span> <span style="color:#f92672">import</span> <span style="color:#111">norm</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">matplotlib.pyplot</span> <span style="color:#00a8c8">as</span> <span style="color:#111">plt</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">matplotlib.dates</span> <span style="color:#00a8c8">as</span> <span style="color:#111">mdates</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#111">matplotlib</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> <span style="color:#111">datetime</span> <span style="color:#f92672">import</span> <span style="color:#111">datetime</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#111">factor_path</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;data/factors/&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">return_path</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;data/return/&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">result_dir</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;result/&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">if</span> <span style="color:#f92672">not</span> <span style="color:#111">os</span><span style="color:#f92672">.</span><span style="color:#111">path</span><span style="color:#f92672">.</span><span style="color:#111">exists</span><span style="color:#111">(</span><span style="color:#111">result_dir</span><span style="color:#111">):</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">os</span><span style="color:#f92672">.</span><span style="color:#111">mkdir</span><span style="color:#111">(</span><span style="color:#111">result_dir</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">def</span> <span style="color:#75af00">get_fund_return</span><span style="color:#111">(</span><span style="color:#111">n</span><span style="color:#111">):</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Return rate of the next n terms</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">df</span> <span style="color:#f92672">=</span> <span style="color:#111">pd</span><span style="color:#f92672">.</span><span style="color:#111">read_csv</span><span style="color:#111">(</span><span style="color:#111">os</span><span style="color:#f92672">.</span><span style="color:#111">path</span><span style="color:#f92672">.</span><span style="color:#111">join</span><span style="color:#111">(</span><span style="color:#111">return_path</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;cisc_3(net_value).csv&#39;</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">df</span> <span style="color:#f92672">=</span> <span style="color:#111">df</span><span style="color:#f92672">.</span><span style="color:#111">rename</span><span style="color:#111">(</span><span style="color:#111">columns</span><span style="color:#f92672">=</span><span style="color:#111">{</span><span style="color:#d88200">&#39;Unnamed: 0&#39;</span><span style="color:#111">:</span> <span style="color:#d88200">&#39;Date&#39;</span><span style="color:#111">})</span><span style="color:#f92672">.</span><span style="color:#111">set_index</span><span style="color:#111">(</span><span style="color:#d88200">&#39;Date&#39;</span><span style="color:#111">)</span><span style="color:#f92672">.</span><span style="color:#111">fillna</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">)</span><span style="color:#f92672">.</span><span style="color:#111">astype</span><span style="color:#111">(</span><span style="color:#111">float</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">fund_value</span> <span style="color:#f92672">=</span> <span style="color:#111">df</span><span style="color:#f92672">.</span><span style="color:#111">copy</span><span style="color:#111">()</span><span style="color:#f92672">.</span><span style="color:#111">shift</span><span style="color:#111">(</span><span style="color:#111">n</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">fund_value_future</span> <span style="color:#f92672">=</span> <span style="color:#111">df</span><span style="color:#f92672">.</span><span style="color:#111">copy</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">date</span> <span style="color:#f92672">=</span> <span style="color:#111">fund_value</span><span style="color:#f92672">.</span><span style="color:#111">index</span><span style="color:#111">[:</span><span style="color:#f92672">-</span><span style="color:#111">n</span><span style="color:#111">]</span><span style="color:#f92672">.</span><span style="color:#111">tolist</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">fund_return</span> <span style="color:#f92672">=</span> <span style="color:#111">fund_value_future</span> <span style="color:#f92672">/</span> <span style="color:#111">fund_value</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Replace infinity by NaN</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">fund_return</span><span style="color:#f92672">.</span><span style="color:#111">replace</span><span style="color:#111">([</span><span style="color:#111">np</span><span style="color:#f92672">.</span><span style="color:#111">inf</span><span style="color:#111">,</span> <span style="color:#f92672">-</span><span style="color:#111">np</span><span style="color:#f92672">.</span><span style="color:#111">inf</span><span style="color:#111">],</span> <span style="color:#111">np</span><span style="color:#f92672">.</span><span style="color:#111">nan</span><span style="color:#111">,</span> <span style="color:#111">inplace</span><span style="color:#f92672">=</span><span style="color:#00a8c8">True</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Delete all NaN</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">fund_return</span> <span style="color:#f92672">=</span> <span style="color:#111">fund_return</span><span style="color:#f92672">.</span><span style="color:#111">dropna</span><span style="color:#111">(</span><span style="color:#111">axis</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#111">how</span><span style="color:#f92672">=</span><span style="color:#d88200">&#39;all&#39;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">fund_return</span> <span style="color:#f92672">=</span> <span style="color:#111">fund_return</span><span style="color:#f92672">.</span><span style="color:#111">fillna</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">fund_return</span> <span style="color:#f92672">=</span> <span style="color:#111">fund_return</span><span style="color:#f92672">.</span><span style="color:#111">iloc</span><span style="color:#111">[</span><span style="color:#111">n</span><span style="color:#111">:,:]</span><span style="color:#f92672">.</span><span style="color:#111">reset_index</span><span style="color:#111">(</span><span style="color:#111">drop</span><span style="color:#f92672">=</span><span style="color:#00a8c8">True</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">fund_return</span><span style="color:#f92672">.</span><span style="color:#111">index</span> <span style="color:#f92672">=</span> <span style="color:#111">date</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span> <span style="color:#111">fund_return</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Select the funds whose corresponding annual returns are not all zero as the sample space</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">fund_return</span> <span style="color:#f92672">=</span> <span style="color:#111">get_fund_return</span><span style="color:#111">(</span><span style="color:#ae81ff">4</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">fund_pool</span> <span style="color:#f92672">=</span> <span style="color:#111">list</span><span style="color:#111">(</span><span style="color:#111">fund_return</span><span style="color:#f92672">.</span><span style="color:#111">columns</span><span style="color:#111">[</span><span style="color:#111">fund_return</span><span style="color:#f92672">.</span><span style="color:#111">any</span><span style="color:#111">()])</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">fund_return</span> <span style="color:#f92672">=</span> <span style="color:#111">fund_return</span><span style="color:#f92672">.</span><span style="color:#111">filter</span><span style="color:#111">(</span><span style="color:#111">items</span><span style="color:#f92672">=</span><span style="color:#111">fund_pool</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">quarter_return</span> <span style="color:#f92672">=</span> <span style="color:#111">get_fund_return</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">)</span><span style="color:#f92672">.</span><span style="color:#111">filter</span><span style="color:#111">(</span><span style="color:#111">items</span><span style="color:#f92672">=</span><span style="color:#111">fund_pool</span><span style="color:#111">)</span><span style="color:#f92672">.</span><span style="color:#111">iloc</span><span style="color:#111">[:</span><span style="color:#f92672">-</span><span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#111">:]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Read factor values</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">factor_csv_list</span> <span style="color:#f92672">=</span> <span style="color:#111">os</span><span style="color:#f92672">.</span><span style="color:#111">listdir</span><span style="color:#111">(</span><span style="color:#111">factor_path</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">factor_csv_list</span> <span style="color:#f92672">=</span> <span style="color:#111">[</span><span style="color:#111">x</span> <span style="color:#00a8c8">for</span> <span style="color:#111">x</span> <span style="color:#f92672">in</span> <span style="color:#111">factor_csv_list</span> <span style="color:#00a8c8">if</span> <span style="color:#111">x</span><span style="color:#111">[</span><span style="color:#f92672">-</span><span style="color:#ae81ff">3</span><span style="color:#111">:]</span> <span style="color:#f92672">==</span> <span style="color:#d88200">&#34;csv&#34;</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">factor_name_list</span> <span style="color:#f92672">=</span> <span style="color:#111">[</span><span style="color:#111">x</span><span style="color:#111">[:</span><span style="color:#f92672">-</span><span style="color:#ae81ff">4</span><span style="color:#111">]</span> <span style="color:#00a8c8">for</span> <span style="color:#111">x</span> <span style="color:#f92672">in</span> <span style="color:#111">factor_csv_list</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">factor_df_list</span> <span style="color:#f92672">=</span> <span style="color:#111">[]</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">for</span> <span style="color:#111">i</span> <span style="color:#f92672">in</span> <span style="color:#111">range</span><span style="color:#111">(</span><span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#111">factor_csv_list</span><span style="color:#111">)):</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">file_path</span> <span style="color:#f92672">=</span> <span style="color:#111">os</span><span style="color:#f92672">.</span><span style="color:#111">path</span><span style="color:#f92672">.</span><span style="color:#111">join</span><span style="color:#111">(</span><span style="color:#111">factor_path</span><span style="color:#111">,</span> <span style="color:#111">factor_csv_list</span><span style="color:#111">[</span><span style="color:#111">i</span><span style="color:#111">])</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">tmp_factor</span> <span style="color:#f92672">=</span> <span style="color:#111">pd</span><span style="color:#f92672">.</span><span style="color:#111">read_csv</span><span style="color:#111">(</span><span style="color:#111">file_path</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">tmp_factor</span><span style="color:#f92672">.</span><span style="color:#111">rename</span><span style="color:#111">(</span><span style="color:#111">columns</span><span style="color:#f92672">=</span><span style="color:#111">{</span><span style="color:#d88200">&#39;Unnamed: 0&#39;</span><span style="color:#111">:</span> <span style="color:#d88200">&#39;Date&#39;</span><span style="color:#111">},</span> <span style="color:#111">inplace</span><span style="color:#f92672">=</span><span style="color:#00a8c8">True</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">tmp_factor</span> <span style="color:#f92672">=</span> <span style="color:#111">tmp_factor</span><span style="color:#f92672">.</span><span style="color:#111">set_index</span><span style="color:#111">(</span><span style="color:#d88200">&#39;Date&#39;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">tmp_factor</span> <span style="color:#f92672">=</span> <span style="color:#111">tmp_factor</span><span style="color:#f92672">.</span><span style="color:#111">filter</span><span style="color:#111">(</span><span style="color:#111">items</span><span style="color:#f92672">=</span><span style="color:#111">fund_pool</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">tmp_factor</span><span style="color:#f92672">.</span><span style="color:#111">fillna</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#111">inplace</span><span style="color:#f92672">=</span><span style="color:#00a8c8">True</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">tmp_factor</span> <span style="color:#f92672">=</span> <span style="color:#111">tmp_factor</span><span style="color:#f92672">.</span><span style="color:#111">astype</span><span style="color:#111">(</span><span style="color:#111">str</span><span style="color:#111">)</span><span style="color:#f92672">.</span><span style="color:#111">apply</span><span style="color:#111">(</span><span style="color:#00a8c8">lambda</span> <span style="color:#111">x</span><span style="color:#111">:</span> <span style="color:#111">x</span><span style="color:#f92672">.</span><span style="color:#111">str</span><span style="color:#f92672">.</span><span style="color:#111">replace</span><span style="color:#111">(</span><span style="color:#d88200">&#34;,&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;&#34;</span><span style="color:#111">))</span><span style="color:#f92672">.</span><span style="color:#111">astype</span><span style="color:#111">(</span><span style="color:#111">float</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">print</span><span style="color:#111">(</span><span style="color:#d88200">f</span><span style="color:#d88200">&#34;Reading：</span><span style="color:#d88200">{</span><span style="color:#111">factor_name_list</span><span style="color:#111">[</span><span style="color:#111">i</span><span style="color:#111">]</span><span style="color:#d88200">}</span><span style="color:#d88200">&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">factor_df_list</span><span style="color:#f92672">.</span><span style="color:#111">append</span><span style="color:#111">({</span><span style="color:#111">factor_name_list</span><span style="color:#111">[</span><span style="color:#111">i</span><span style="color:#111">]:</span> <span style="color:#111">tmp_factor</span><span style="color:#111">})</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># RankIC test</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">def</span> <span style="color:#75af00">get_RankIC</span><span style="color:#111">(</span><span style="color:#111">factor_name_list</span><span style="color:#111">,</span> <span style="color:#111">factor_df_list</span><span style="color:#111">):</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Return of next year</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">ICmean_list</span> <span style="color:#f92672">=</span> <span style="color:#111">np</span><span style="color:#f92672">.</span><span style="color:#111">zeros</span><span style="color:#111">(</span><span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#111">factor_name_list</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">ICstd_list</span> <span style="color:#f92672">=</span> <span style="color:#111">np</span><span style="color:#f92672">.</span><span style="color:#111">zeros</span><span style="color:#111">(</span><span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#111">factor_name_list</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">ICIR_list</span> <span style="color:#f92672">=</span> <span style="color:#111">np</span><span style="color:#f92672">.</span><span style="color:#111">zeros</span><span style="color:#111">(</span><span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#111">factor_name_list</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">average_sample</span> <span style="color:#f92672">=</span> <span style="color:#111">np</span><span style="color:#f92672">.</span><span style="color:#111">zeros</span><span style="color:#111">(</span><span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#111">factor_name_list</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">for</span> <span style="color:#111">i</span> <span style="color:#f92672">in</span> <span style="color:#111">range</span><span style="color:#111">(</span><span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#111">factor_name_list</span><span style="color:#111">)):</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">factor_name</span> <span style="color:#f92672">=</span> <span style="color:#111">factor_name_list</span><span style="color:#111">[</span><span style="color:#111">i</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">factor_df</span> <span style="color:#f92672">=</span> <span style="color:#111">factor_df_list</span><span style="color:#111">[</span><span style="color:#111">i</span><span style="color:#111">][</span><span style="color:#111">factor_name</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">tmp_corr</span> <span style="color:#f92672">=</span> <span style="color:#111">np</span><span style="color:#f92672">.</span><span style="color:#111">zeros</span><span style="color:#111">(</span><span style="color:#111">factor_df</span><span style="color:#f92672">.</span><span style="color:#111">shape</span><span style="color:#111">[</span><span style="color:#ae81ff">0</span><span style="color:#111">])</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">sum_sample</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">for</span> <span style="color:#111">day</span> <span style="color:#f92672">in</span> <span style="color:#111">range</span><span style="color:#111">(</span><span style="color:#111">factor_df</span><span style="color:#f92672">.</span><span style="color:#111">shape</span><span style="color:#111">[</span><span style="color:#ae81ff">0</span><span style="color:#111">]):</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">return_series</span> <span style="color:#f92672">=</span> <span style="color:#111">fund_return</span><span style="color:#f92672">.</span><span style="color:#111">iloc</span><span style="color:#111">[</span><span style="color:#111">day</span><span style="color:#111">,</span> <span style="color:#111">:]</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">factor_series</span> <span style="color:#f92672">=</span> <span style="color:#111">factor_df</span><span style="color:#f92672">.</span><span style="color:#111">iloc</span><span style="color:#111">[</span><span style="color:#111">day</span><span style="color:#111">,</span> <span style="color:#111">:]</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Only keep non-zero columns</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">return_series_nonzero</span> <span style="color:#f92672">=</span> <span style="color:#111">return_series</span><span style="color:#111">[</span><span style="color:#111">return_series</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">factor_series_nonzero</span> <span style="color:#f92672">=</span> <span style="color:#111">factor_series</span><span style="color:#111">[</span><span style="color:#111">factor_series</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Only keep the shared parts</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">combine</span> <span style="color:#f92672">=</span> <span style="color:#111">pd</span><span style="color:#f92672">.</span><span style="color:#111">merge</span><span style="color:#111">(</span><span style="color:#111">return_series_nonzero</span><span style="color:#111">,</span> <span style="color:#111">factor_series_nonzero</span><span style="color:#111">,</span> 
+</span></span><span style="display:flex;"><span>                               <span style="color:#111">how</span><span style="color:#f92672">=</span><span style="color:#d88200">&#39;inner&#39;</span><span style="color:#111">,</span> <span style="color:#111">left_index</span><span style="color:#f92672">=</span><span style="color:#00a8c8">True</span><span style="color:#111">,</span> <span style="color:#111">right_index</span><span style="color:#f92672">=</span><span style="color:#00a8c8">True</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">return_series_common</span> <span style="color:#f92672">=</span> <span style="color:#111">combine</span><span style="color:#f92672">.</span><span style="color:#111">iloc</span><span style="color:#111">[:,</span> <span style="color:#ae81ff">0</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">factor_series_common</span> <span style="color:#f92672">=</span> <span style="color:#111">combine</span><span style="color:#f92672">.</span><span style="color:#111">iloc</span><span style="color:#111">[:,</span> <span style="color:#ae81ff">1</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">np_return</span> <span style="color:#f92672">=</span> <span style="color:#111">np</span><span style="color:#f92672">.</span><span style="color:#111">array</span><span style="color:#111">(</span><span style="color:#111">return_series_common</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">np_factor</span> <span style="color:#f92672">=</span> <span style="color:#111">np</span><span style="color:#f92672">.</span><span style="color:#111">array</span><span style="color:#111">(</span><span style="color:#111">factor_series_common</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">num_sample</span> <span style="color:#f92672">=</span> <span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#111">np_return</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">sum_sample</span> <span style="color:#f92672">+=</span> <span style="color:#111">num_sample</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">rankic</span><span style="color:#111">,</span> <span style="color:#111">_</span> <span style="color:#f92672">=</span> <span style="color:#111">stats</span><span style="color:#f92672">.</span><span style="color:#111">spearmanr</span><span style="color:#111">(</span><span style="color:#111">np_return</span><span style="color:#111">,</span> <span style="color:#111">np_factor</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">tmp_corr</span><span style="color:#111">[</span><span style="color:#111">day</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#00a8c8">if</span> <span style="color:#111">math</span><span style="color:#f92672">.</span><span style="color:#111">isnan</span><span style="color:#111">(</span><span style="color:#111">rankic</span><span style="color:#111">)</span> <span style="color:#00a8c8">else</span> <span style="color:#111">rankic</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">average_sample</span><span style="color:#111">[</span><span style="color:#111">i</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#111">sum_sample</span> <span style="color:#f92672">/</span> <span style="color:#111">factor_df</span><span style="color:#f92672">.</span><span style="color:#111">shape</span><span style="color:#111">[</span><span style="color:#ae81ff">0</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">ICmean</span> <span style="color:#f92672">=</span> <span style="color:#111">np</span><span style="color:#f92672">.</span><span style="color:#111">mean</span><span style="color:#111">(</span><span style="color:#111">tmp_corr</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">ICstd</span> <span style="color:#f92672">=</span> <span style="color:#111">np</span><span style="color:#f92672">.</span><span style="color:#111">std</span><span style="color:#111">(</span><span style="color:#111">tmp_corr</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">ICIR</span> <span style="color:#f92672">=</span> <span style="color:#111">ICmean</span> <span style="color:#f92672">/</span> <span style="color:#111">ICstd</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">ICmean_list</span><span style="color:#111">[</span><span style="color:#111">i</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#111">ICmean</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">ICstd_list</span><span style="color:#111">[</span><span style="color:#111">i</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#111">ICstd</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">ICIR_list</span><span style="color:#111">[</span><span style="color:#111">i</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#111">ICIR</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">IC_summary</span> <span style="color:#f92672">=</span> <span style="color:#111">pd</span><span style="color:#f92672">.</span><span style="color:#111">DataFrame</span><span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">[</span><span style="color:#111">ICmean_list</span><span style="color:#111">,</span> <span style="color:#111">ICstd_list</span><span style="color:#111">,</span> <span style="color:#111">ICIR_list</span><span style="color:#111">,</span> <span style="color:#111">average_sample</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span> <span style="color:#111">IC_summary</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">def</span> <span style="color:#75af00">summarized_IC</span><span style="color:#111">(</span><span style="color:#111">factor_name_list</span><span style="color:#111">,</span> <span style="color:#111">factor_df_list</span><span style="color:#111">):</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">col_names</span> <span style="color:#f92672">=</span> <span style="color:#111">[</span><span style="color:#d88200">&#39;ICmean&#39;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;ICstd&#39;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;ICIR&#39;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;AvgSample&#39;</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">IC_df</span> <span style="color:#f92672">=</span> <span style="color:#111">get_RankIC</span><span style="color:#111">(</span><span style="color:#111">factor_name_list</span><span style="color:#111">,</span> <span style="color:#111">factor_df_list</span><span style="color:#111">)</span><span style="color:#f92672">.</span><span style="color:#111">T</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">IC_df</span><span style="color:#f92672">.</span><span style="color:#111">columns</span> <span style="color:#f92672">=</span> <span style="color:#111">col_names</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">IC_df</span><span style="color:#f92672">.</span><span style="color:#111">index</span> <span style="color:#f92672">=</span> <span style="color:#111">factor_name_list</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span> <span style="color:#111">IC_df</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#111">IC_df</span> <span style="color:#f92672">=</span> <span style="color:#111">summarized_IC</span><span style="color:#111">(</span><span style="color:#111">factor_name_list</span><span style="color:#111">,</span> <span style="color:#111">factor_df_list</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">print</span><span style="color:#111">(</span><span style="color:#111">IC_df</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">os</span><span style="color:#f92672">.</span><span style="color:#111">chdir</span><span style="color:#111">(</span><span style="color:#111">result_dir</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">IC_df</span><span style="color:#f92672">.</span><span style="color:#111">to_excel</span><span style="color:#111">(</span><span style="color:#d88200">&#34;RankIC.xlsx&#34;</span><span style="color:#111">)</span>
+</span></span></code></pre></div><table>
 <thead>
 <tr>
 <th style="text-align:center"></th>
@@ -347,54 +354,63 @@ IC_df.to_excel(&#34;RankIC.xlsx&#34;)
 </table>
 <h3 id="portfolio-test">Portfolio test</h3>
 <p>First of all, according to the factor value of the current period, the stocks are divided into five equal weight quantile portfolios, and the returns of the portfolios in the next period are denoted as \(R_1, R_2, \cdots, R_5\) We judge the effectiveness of the factor according to the return \(R_1\sim R_5\) of the long-short combination. If the return of the long-short combination is significantly different from zero, it indicates that the factor is effective. The higher the combination sharpe ratio, the more effective the factor is. However, it is worth noting that since the quantile array method only considers the returns of the two extreme combinations of long and short, and ignores the relevant information of the middle combinations of quantiles, there may be some limitations in the characterization of factor effectiveness.</p>
+<p><img
+  src="/img/cisc_3_7.png"
+  alt="fig7"
+  loading="lazy"
+  decoding="async"
+  class="full-width"
+/>
+
+</p>
 <p>Add the following code to <code>main.py</code></p>
-<pre tabindex="0"><code># Quantile portfolio test
-def quantile_test(IC_df):
-    target_dict = {}
-    for i in range(len(factor_name_list)):
-        # Build a T*5 matrix
-        target = np.zeros([quarter_return.shape[0], 5])
-        factor_name = factor_name_list[i]
-        factor_df = factor_df_list[i][factor_name]
-        IC_mean = IC_df.loc[factor_name, &#39;ICmean&#39;]
-        for day in range(factor_df.shape[0]):
-            factor_value = pd.DataFrame({&#39;factor_value&#39;: factor_df.iloc[day, :].tolist()})
-            factor_value = factor_value[factor_value != 0]
-            return_value = pd.DataFrame({&#39;return_value&#39;: quarter_return.iloc[day, :].tolist()})
-            return_value = return_value[return_value != 0]
-            if IC_mean &gt; 0:
-                quantile = pd.qcut(factor_value[&#39;factor_value&#39;], q=5, labels=False)
-            else:
-                quantile = pd.qcut(-factor_value[&#39;factor_value&#39;], q=5, labels=False)
-            quantile_df = pd.concat([factor_value[&#39;factor_value&#39;], return_value[&#39;return_value&#39;], quantile], axis=1)
-            quantile_df.index = factor_df.columns
-            quantile_df.columns = [factor_name, &#39;return_value&#39;, &#39;quantile&#39;]
-            quantile_df.dropna(inplace=True)
-            quantile_df = quantile_df.sort_values(by=&#39;quantile&#39;, ascending=True)
-            target[day] = quantile_df.groupby(&#39;quantile&#39;)[&#39;return_value&#39;].mean().tolist()
-
-        tmp = pd.DataFrame(target, columns=[&#39;Group 1&#39;, &#39;Group 2&#39;,
-                                                       &#39;Group 3&#39;, &#39;Group 4&#39;, &#39;Group 5&#39;], index=quarter_return.index)
-        target_dict[factor_name] = (1 + tmp).cumprod()
-    return target_dict
-
-# Plot portfolio test result
-target = quantile_test(IC_df)
-for factor in factor_name_list:
-    df = target[factor]
-    dates = [datetime.strptime(date_str, &#39;%Y/%m/%d&#39;).date() for date_str in df.index.tolist()]
-    for group in df.columns:
-        plt.subplot(1, 2, 1)
-        plt.plot(dates, df[group], label=group)
-        plt.gca().xaxis.set_major_formatter(mdates.DateFormatter(&#39;%Y&#39;))
-        plt.subplot(1, 2, 2)
-        plt.bar(group, np.mean(df[group]), label=group)
-    plt.legend()
-    plt.title(factor)
-    plt.xlabel(&#39;Date&#39;)
-    plt.ylabel(&#39;Return&#39;)
-    plt.show()
-</code></pre><p><img
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Quantile portfolio test</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">def</span> <span style="color:#75af00">quantile_test</span><span style="color:#111">(</span><span style="color:#111">IC_df</span><span style="color:#111">):</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">target_dict</span> <span style="color:#f92672">=</span> <span style="color:#111">{}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">for</span> <span style="color:#111">i</span> <span style="color:#f92672">in</span> <span style="color:#111">range</span><span style="color:#111">(</span><span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#111">factor_name_list</span><span style="color:#111">)):</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Build a T*5 matrix</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">target</span> <span style="color:#f92672">=</span> <span style="color:#111">np</span><span style="color:#f92672">.</span><span style="color:#111">zeros</span><span style="color:#111">([</span><span style="color:#111">quarter_return</span><span style="color:#f92672">.</span><span style="color:#111">shape</span><span style="color:#111">[</span><span style="color:#ae81ff">0</span><span style="color:#111">],</span> <span style="color:#ae81ff">5</span><span style="color:#111">])</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">factor_name</span> <span style="color:#f92672">=</span> <span style="color:#111">factor_name_list</span><span style="color:#111">[</span><span style="color:#111">i</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">factor_df</span> <span style="color:#f92672">=</span> <span style="color:#111">factor_df_list</span><span style="color:#111">[</span><span style="color:#111">i</span><span style="color:#111">][</span><span style="color:#111">factor_name</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">IC_mean</span> <span style="color:#f92672">=</span> <span style="color:#111">IC_df</span><span style="color:#f92672">.</span><span style="color:#111">loc</span><span style="color:#111">[</span><span style="color:#111">factor_name</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;ICmean&#39;</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#00a8c8">for</span> <span style="color:#111">day</span> <span style="color:#f92672">in</span> <span style="color:#111">range</span><span style="color:#111">(</span><span style="color:#111">factor_df</span><span style="color:#f92672">.</span><span style="color:#111">shape</span><span style="color:#111">[</span><span style="color:#ae81ff">0</span><span style="color:#111">]):</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">factor_value</span> <span style="color:#f92672">=</span> <span style="color:#111">pd</span><span style="color:#f92672">.</span><span style="color:#111">DataFrame</span><span style="color:#111">({</span><span style="color:#d88200">&#39;factor_value&#39;</span><span style="color:#111">:</span> <span style="color:#111">factor_df</span><span style="color:#f92672">.</span><span style="color:#111">iloc</span><span style="color:#111">[</span><span style="color:#111">day</span><span style="color:#111">,</span> <span style="color:#111">:]</span><span style="color:#f92672">.</span><span style="color:#111">tolist</span><span style="color:#111">()})</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">factor_value</span> <span style="color:#f92672">=</span> <span style="color:#111">factor_value</span><span style="color:#111">[</span><span style="color:#111">factor_value</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">return_value</span> <span style="color:#f92672">=</span> <span style="color:#111">pd</span><span style="color:#f92672">.</span><span style="color:#111">DataFrame</span><span style="color:#111">({</span><span style="color:#d88200">&#39;return_value&#39;</span><span style="color:#111">:</span> <span style="color:#111">quarter_return</span><span style="color:#f92672">.</span><span style="color:#111">iloc</span><span style="color:#111">[</span><span style="color:#111">day</span><span style="color:#111">,</span> <span style="color:#111">:]</span><span style="color:#f92672">.</span><span style="color:#111">tolist</span><span style="color:#111">()})</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">return_value</span> <span style="color:#f92672">=</span> <span style="color:#111">return_value</span><span style="color:#111">[</span><span style="color:#111">return_value</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">if</span> <span style="color:#111">IC_mean</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">quantile</span> <span style="color:#f92672">=</span> <span style="color:#111">pd</span><span style="color:#f92672">.</span><span style="color:#111">qcut</span><span style="color:#111">(</span><span style="color:#111">factor_value</span><span style="color:#111">[</span><span style="color:#d88200">&#39;factor_value&#39;</span><span style="color:#111">],</span> <span style="color:#111">q</span><span style="color:#f92672">=</span><span style="color:#ae81ff">5</span><span style="color:#111">,</span> <span style="color:#111">labels</span><span style="color:#f92672">=</span><span style="color:#00a8c8">False</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#00a8c8">else</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#111">quantile</span> <span style="color:#f92672">=</span> <span style="color:#111">pd</span><span style="color:#f92672">.</span><span style="color:#111">qcut</span><span style="color:#111">(</span><span style="color:#f92672">-</span><span style="color:#111">factor_value</span><span style="color:#111">[</span><span style="color:#d88200">&#39;factor_value&#39;</span><span style="color:#111">],</span> <span style="color:#111">q</span><span style="color:#f92672">=</span><span style="color:#ae81ff">5</span><span style="color:#111">,</span> <span style="color:#111">labels</span><span style="color:#f92672">=</span><span style="color:#00a8c8">False</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">quantile_df</span> <span style="color:#f92672">=</span> <span style="color:#111">pd</span><span style="color:#f92672">.</span><span style="color:#111">concat</span><span style="color:#111">([</span><span style="color:#111">factor_value</span><span style="color:#111">[</span><span style="color:#d88200">&#39;factor_value&#39;</span><span style="color:#111">],</span> <span style="color:#111">return_value</span><span style="color:#111">[</span><span style="color:#d88200">&#39;return_value&#39;</span><span style="color:#111">],</span> <span style="color:#111">quantile</span><span style="color:#111">],</span> <span style="color:#111">axis</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">quantile_df</span><span style="color:#f92672">.</span><span style="color:#111">index</span> <span style="color:#f92672">=</span> <span style="color:#111">factor_df</span><span style="color:#f92672">.</span><span style="color:#111">columns</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">quantile_df</span><span style="color:#f92672">.</span><span style="color:#111">columns</span> <span style="color:#f92672">=</span> <span style="color:#111">[</span><span style="color:#111">factor_name</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;return_value&#39;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;quantile&#39;</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">quantile_df</span><span style="color:#f92672">.</span><span style="color:#111">dropna</span><span style="color:#111">(</span><span style="color:#111">inplace</span><span style="color:#f92672">=</span><span style="color:#00a8c8">True</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">quantile_df</span> <span style="color:#f92672">=</span> <span style="color:#111">quantile_df</span><span style="color:#f92672">.</span><span style="color:#111">sort_values</span><span style="color:#111">(</span><span style="color:#111">by</span><span style="color:#f92672">=</span><span style="color:#d88200">&#39;quantile&#39;</span><span style="color:#111">,</span> <span style="color:#111">ascending</span><span style="color:#f92672">=</span><span style="color:#00a8c8">True</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#111">target</span><span style="color:#111">[</span><span style="color:#111">day</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#111">quantile_df</span><span style="color:#f92672">.</span><span style="color:#111">groupby</span><span style="color:#111">(</span><span style="color:#d88200">&#39;quantile&#39;</span><span style="color:#111">)[</span><span style="color:#d88200">&#39;return_value&#39;</span><span style="color:#111">]</span><span style="color:#f92672">.</span><span style="color:#111">mean</span><span style="color:#111">()</span><span style="color:#f92672">.</span><span style="color:#111">tolist</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">tmp</span> <span style="color:#f92672">=</span> <span style="color:#111">pd</span><span style="color:#f92672">.</span><span style="color:#111">DataFrame</span><span style="color:#111">(</span><span style="color:#111">target</span><span style="color:#111">,</span> <span style="color:#111">columns</span><span style="color:#f92672">=</span><span style="color:#111">[</span><span style="color:#d88200">&#39;Group 1&#39;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;Group 2&#39;</span><span style="color:#111">,</span>
+</span></span><span style="display:flex;"><span>                                                       <span style="color:#d88200">&#39;Group 3&#39;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;Group 4&#39;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;Group 5&#39;</span><span style="color:#111">],</span> <span style="color:#111">index</span><span style="color:#f92672">=</span><span style="color:#111">quarter_return</span><span style="color:#f92672">.</span><span style="color:#111">index</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">target_dict</span><span style="color:#111">[</span><span style="color:#111">factor_name</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#111">(</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> <span style="color:#111">tmp</span><span style="color:#111">)</span><span style="color:#f92672">.</span><span style="color:#111">cumprod</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span> <span style="color:#111">target_dict</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Plot portfolio test result</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">target</span> <span style="color:#f92672">=</span> <span style="color:#111">quantile_test</span><span style="color:#111">(</span><span style="color:#111">IC_df</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">for</span> <span style="color:#111">factor</span> <span style="color:#f92672">in</span> <span style="color:#111">factor_name_list</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">df</span> <span style="color:#f92672">=</span> <span style="color:#111">target</span><span style="color:#111">[</span><span style="color:#111">factor</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">dates</span> <span style="color:#f92672">=</span> <span style="color:#111">[</span><span style="color:#111">datetime</span><span style="color:#f92672">.</span><span style="color:#111">strptime</span><span style="color:#111">(</span><span style="color:#111">date_str</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;%Y/%m/</span><span style="color:#d88200">%d</span><span style="color:#d88200">&#39;</span><span style="color:#111">)</span><span style="color:#f92672">.</span><span style="color:#111">date</span><span style="color:#111">()</span> <span style="color:#00a8c8">for</span> <span style="color:#111">date_str</span> <span style="color:#f92672">in</span> <span style="color:#111">df</span><span style="color:#f92672">.</span><span style="color:#111">index</span><span style="color:#f92672">.</span><span style="color:#111">tolist</span><span style="color:#111">()]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">for</span> <span style="color:#111">group</span> <span style="color:#f92672">in</span> <span style="color:#111">df</span><span style="color:#f92672">.</span><span style="color:#111">columns</span><span style="color:#111">:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">plt</span><span style="color:#f92672">.</span><span style="color:#111">subplot</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#ae81ff">1</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">plt</span><span style="color:#f92672">.</span><span style="color:#111">plot</span><span style="color:#111">(</span><span style="color:#111">dates</span><span style="color:#111">,</span> <span style="color:#111">df</span><span style="color:#111">[</span><span style="color:#111">group</span><span style="color:#111">],</span> <span style="color:#111">label</span><span style="color:#f92672">=</span><span style="color:#111">group</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">plt</span><span style="color:#f92672">.</span><span style="color:#111">gca</span><span style="color:#111">()</span><span style="color:#f92672">.</span><span style="color:#111">xaxis</span><span style="color:#f92672">.</span><span style="color:#111">set_major_formatter</span><span style="color:#111">(</span><span style="color:#111">mdates</span><span style="color:#f92672">.</span><span style="color:#111">DateFormatter</span><span style="color:#111">(</span><span style="color:#d88200">&#39;%Y&#39;</span><span style="color:#111">))</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">plt</span><span style="color:#f92672">.</span><span style="color:#111">subplot</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#ae81ff">2</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">plt</span><span style="color:#f92672">.</span><span style="color:#111">bar</span><span style="color:#111">(</span><span style="color:#111">group</span><span style="color:#111">,</span> <span style="color:#111">np</span><span style="color:#f92672">.</span><span style="color:#111">mean</span><span style="color:#111">(</span><span style="color:#111">df</span><span style="color:#111">[</span><span style="color:#111">group</span><span style="color:#111">]),</span> <span style="color:#111">label</span><span style="color:#f92672">=</span><span style="color:#111">group</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">plt</span><span style="color:#f92672">.</span><span style="color:#111">legend</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">plt</span><span style="color:#f92672">.</span><span style="color:#111">title</span><span style="color:#111">(</span><span style="color:#111">factor</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">plt</span><span style="color:#f92672">.</span><span style="color:#111">xlabel</span><span style="color:#111">(</span><span style="color:#d88200">&#39;Date&#39;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">plt</span><span style="color:#f92672">.</span><span style="color:#111">ylabel</span><span style="color:#111">(</span><span style="color:#d88200">&#39;Return&#39;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">plt</span><span style="color:#f92672">.</span><span style="color:#111">show</span><span style="color:#111">()</span>
+</span></span></code></pre></div><p><img
   src="/img/cisc_3_2.png"
   alt="fig2"
   loading="lazy"
@@ -441,27 +457,25 @@ for factor in factor_name_list:
 </p>
 <h3 id="factor-composition">Factor composition</h3>
 <p>Add the following code to <code>main.py</code></p>
-<pre tabindex="0"><code>def composite(IC_df):
-    weight = IC_df.iloc[:, 0] / sum(IC_df.iloc[:, 0])
-    norm_factor_list = []
-    for i in range(len(factor_name_list)):
-        factor_name = factor_name_list[i]
-        factor_df = factor_df_list[i][factor_name]
-        norm_factor = factor_df.copy()
-        nonzero = norm_factor[norm_factor != 0]
-        # norm_factor[norm_factor != 0] = nonzero.sub(nonzero.mean(axis=1), axis=0).div(nonzero.std(axis=1), axis=0)
-        norm_factor[norm_factor != 0] = nonzero.apply(lambda x: x.rank(pct=True), axis=1)
-        # norm_factor[norm_factor != 0] = norm_factor.apply(lambda x: x.rank(pct=True), axis=1)
-        norm_factor_list.append({factor_name: pd.DataFrame(norm_factor, dtype=float)})
-
-    norm_df = sum([weight[i] * norm_factor_list[i][factor_name_list[i]] for i in range(len(factor_name_list))])
-
-    return norm_df
-
-norm_df = composite(IC_df)
-composed = summarized_IC([&#39;Composite&#39;], [{&#39;Composite&#39;: norm_df}])
-print(composed)
-</code></pre><table>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#00a8c8">def</span> <span style="color:#75af00">composite</span><span style="color:#111">(</span><span style="color:#111">IC_df</span><span style="color:#111">):</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">weight</span> <span style="color:#f92672">=</span> <span style="color:#111">IC_df</span><span style="color:#f92672">.</span><span style="color:#111">iloc</span><span style="color:#111">[:,</span> <span style="color:#ae81ff">0</span><span style="color:#111">]</span> <span style="color:#f92672">/</span> <span style="color:#111">sum</span><span style="color:#111">(</span><span style="color:#111">IC_df</span><span style="color:#f92672">.</span><span style="color:#111">iloc</span><span style="color:#111">[:,</span> <span style="color:#ae81ff">0</span><span style="color:#111">])</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">norm_factor_list</span> <span style="color:#f92672">=</span> <span style="color:#111">[]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">for</span> <span style="color:#111">i</span> <span style="color:#f92672">in</span> <span style="color:#111">range</span><span style="color:#111">(</span><span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#111">factor_name_list</span><span style="color:#111">)):</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">factor_name</span> <span style="color:#f92672">=</span> <span style="color:#111">factor_name_list</span><span style="color:#111">[</span><span style="color:#111">i</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">factor_df</span> <span style="color:#f92672">=</span> <span style="color:#111">factor_df_list</span><span style="color:#111">[</span><span style="color:#111">i</span><span style="color:#111">][</span><span style="color:#111">factor_name</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">norm_factor</span> <span style="color:#f92672">=</span> <span style="color:#111">factor_df</span><span style="color:#f92672">.</span><span style="color:#111">copy</span><span style="color:#111">()</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">nonzero</span> <span style="color:#f92672">=</span> <span style="color:#111">norm_factor</span><span style="color:#111">[</span><span style="color:#111">norm_factor</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span><span style="color:#111">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">norm_factor</span><span style="color:#111">[</span><span style="color:#111">norm_factor</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#111">nonzero</span><span style="color:#f92672">.</span><span style="color:#111">apply</span><span style="color:#111">(</span><span style="color:#00a8c8">lambda</span> <span style="color:#111">x</span><span style="color:#111">:</span> <span style="color:#111">x</span><span style="color:#f92672">.</span><span style="color:#111">rank</span><span style="color:#111">(</span><span style="color:#111">pct</span><span style="color:#f92672">=</span><span style="color:#00a8c8">True</span><span style="color:#111">),</span> <span style="color:#111">axis</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#111">norm_factor_list</span><span style="color:#f92672">.</span><span style="color:#111">append</span><span style="color:#111">({</span><span style="color:#111">factor_name</span><span style="color:#111">:</span> <span style="color:#111">pd</span><span style="color:#f92672">.</span><span style="color:#111">DataFrame</span><span style="color:#111">(</span><span style="color:#111">norm_factor</span><span style="color:#111">,</span> <span style="color:#111">dtype</span><span style="color:#f92672">=</span><span style="color:#111">float</span><span style="color:#111">)})</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#111">norm_df</span> <span style="color:#f92672">=</span> <span style="color:#111">sum</span><span style="color:#111">([</span><span style="color:#111">weight</span><span style="color:#111">[</span><span style="color:#111">i</span><span style="color:#111">]</span> <span style="color:#f92672">*</span> <span style="color:#111">norm_factor_list</span><span style="color:#111">[</span><span style="color:#111">i</span><span style="color:#111">][</span><span style="color:#111">factor_name_list</span><span style="color:#111">[</span><span style="color:#111">i</span><span style="color:#111">]]</span> <span style="color:#00a8c8">for</span> <span style="color:#111">i</span> <span style="color:#f92672">in</span> <span style="color:#111">range</span><span style="color:#111">(</span><span style="color:#111">len</span><span style="color:#111">(</span><span style="color:#111">factor_name_list</span><span style="color:#111">))])</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">return</span> <span style="color:#111">norm_df</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#111">norm_df</span> <span style="color:#f92672">=</span> <span style="color:#111">composite</span><span style="color:#111">(</span><span style="color:#111">IC_df</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">composed</span> <span style="color:#f92672">=</span> <span style="color:#111">summarized_IC</span><span style="color:#111">([</span><span style="color:#d88200">&#39;Composite&#39;</span><span style="color:#111">],</span> <span style="color:#111">[{</span><span style="color:#d88200">&#39;Composite&#39;</span><span style="color:#111">:</span> <span style="color:#111">norm_df</span><span style="color:#111">}])</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">print</span><span style="color:#111">(</span><span style="color:#111">composed</span><span style="color:#111">)</span>
+</span></span></code></pre></div><table>
 <thead>
 <tr>
 <th style="text-align:center"></th>
@@ -491,6 +505,7 @@ print(composed)
       <div class="post-date">
         <span class="g time">February 2, 2024 </span> &#8729;
          
+         <a href="http://localhost:1313/tech/tags/intern/">intern</a> <a href="http://localhost:1313/tech/tags/cisc/">cisc</a> <a href="http://localhost:1313/tech/tags/2024/">2024</a> <a href="http://localhost:1313/tech/tags/factor/">factor</a>
       </div>
       
     </section>

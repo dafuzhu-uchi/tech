@@ -42,7 +42,7 @@ This process can be programmed following the steps.
 
 **Step 1: Create a folder with a structure as below**
 
-```
+```plain
 folder
 ├── data
 │   ├── factors
@@ -64,7 +64,7 @@ folder
 
 Remind that the working directory should be the root folder when running this program.
 
-```
+```python 
 import pandas as pd
 import numpy as np
 import os
@@ -141,7 +141,8 @@ def get_RankIC(factor_name_list, factor_df_list):
             return_series_nonzero = return_series[return_series != 0]
             factor_series_nonzero = factor_series[factor_series != 0]
             # Only keep the shared parts
-            combine = pd.merge(return_series_nonzero, factor_series_nonzero, how='inner', left_index=True, right_index=True)
+            combine = pd.merge(return_series_nonzero, factor_series_nonzero, 
+                               how='inner', left_index=True, right_index=True)
             return_series_common = combine.iloc[:, 0]
             factor_series_common = combine.iloc[:, 1]
             np_return = np.array(return_series_common)
@@ -193,7 +194,7 @@ First of all, according to the factor value of the current period, the stocks ar
 
 Add the following code to `main.py`
 
-```
+```python
 # Quantile portfolio test
 def quantile_test(IC_df):
     target_dict = {}
@@ -256,7 +257,7 @@ for factor in factor_name_list:
 
 Add the following code to `main.py`
 
-```
+```python
 def composite(IC_df):
     weight = IC_df.iloc[:, 0] / sum(IC_df.iloc[:, 0])
     norm_factor_list = []
@@ -265,9 +266,7 @@ def composite(IC_df):
         factor_df = factor_df_list[i][factor_name]
         norm_factor = factor_df.copy()
         nonzero = norm_factor[norm_factor != 0]
-        # norm_factor[norm_factor != 0] = nonzero.sub(nonzero.mean(axis=1), axis=0).div(nonzero.std(axis=1), axis=0)
         norm_factor[norm_factor != 0] = nonzero.apply(lambda x: x.rank(pct=True), axis=1)
-        # norm_factor[norm_factor != 0] = norm_factor.apply(lambda x: x.rank(pct=True), axis=1)
         norm_factor_list.append({factor_name: pd.DataFrame(norm_factor, dtype=float)})
 
     norm_df = sum([weight[i] * norm_factor_list[i][factor_name_list[i]] for i in range(len(factor_name_list))])

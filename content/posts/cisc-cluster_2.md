@@ -27,7 +27,7 @@ From the overall trend point of view, Index 3 and 5 outperform the market for a 
 
 Raw data: [Index performance](/raw_data/cisc_2(index_performance).xlsx)
 
-```
+```python
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -46,7 +46,7 @@ rate.sort_index(inplace=True)
 
 Use K-means algorithm after averaging the daily returns, and set \(k=5\).
 
-```
+```python
 code = {
     'CI005001.WI': '石油石化',
     'CI005002.WI': '煤炭',
@@ -99,7 +99,7 @@ df_code['Label'] = labels + 1
 
 Visualize the result of clustering.
 
-```
+```python
 # Plot the data points with color-coded clusters
 plt.figure(figsize=(10,6), dpi=500)
 plt.scatter(features['mean'], features['var'], c=labels, cmap='viridis')
@@ -115,7 +115,7 @@ plt.show()
 
 Then, calculate the cummulative return of five indices.
 
-```
+```python
 cum = indexes / indexes.iloc[0,:]
 
 idx_1_raw = cum.iloc[:,list(np.where(labels == 0)[0])]
@@ -148,7 +148,7 @@ rate_df
 
 Plot the trend of five indices from 2010 to 2023
 
-```
+```python
 mkt = data.iloc[:,1]
 mkt_cum = mkt / mkt[0]
 
