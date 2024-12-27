@@ -30,6 +30,10 @@ menu:
       name: "Post"
       url: "/posts/"
       weight: -200
+    - identifier: "guide"
+      name: "Guide"
+      url: "/"
+      weight: -220
 
 markup:
   goldmark:
