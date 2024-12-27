@@ -32,7 +32,7 @@ menu:
       weight: -200
     - identifier: "guide"
       name: "Guide"
-      url: "/"
+      url: "../"
       weight: -220
 
 markup:
