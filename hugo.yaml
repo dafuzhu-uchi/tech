@@ -25,15 +25,15 @@ menu:
     - identifier: "about"
       name: "About"
       url: "/about/"
-      weight: -110
+      weight: 10
     - identifier: "posts"
       name: "Post"
       url: "/posts/"
-      weight: -200
+      weight: 20
     - identifier: "guide"
       name: "Guide"
-      url: "../"
-      weight: -220
+      url: "https://dafuzhu.com"
+      weight: 30
 
 markup:
   goldmark:
