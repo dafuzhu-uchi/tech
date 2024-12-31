@@ -9,7 +9,7 @@ draft = false
 
 Each project is named following the format:
 
-```
+```plain
 [organization]-[project name]_[project number].md
 ```
 
