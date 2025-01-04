@@ -30,10 +30,6 @@ menu:
       name: "Post"
       url: "/posts/"
       weight: 20
-    - identifier: "guide"
-      name: "Guide"
-      url: "https://dafuzhu.com"
-      weight: 30
 
 markup:
   goldmark:
