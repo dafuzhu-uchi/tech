@@ -13,7 +13,7 @@
       <link>http://localhost:1313/tech/posts/xmu_240626/</link>
       <pubDate>Wed, 26 Jun 2024 19:27:00 +0800</pubDate>
       <guid>http://localhost:1313/tech/posts/xmu_240626/</guid>
-      <description>Import libraries # import libraries import numpy as np import pandas as pd import torch from torch import nn import matplotlib.pyplot as plt from torch.utils.data import DataLoader, TensorDataset Ingest data # ingest data train_data = pd.read_csv(&amp;#34;house-price-data/train.csv&amp;#34;) test_data = pd.read_csv(&amp;#34;house-price-data/test.csv&amp;#34;) Data preprocessing We preprocess the data set first.&#xA;Numerical data ** standardized **&#xA;Handling Missing values: Fill in or remove ** Missing values **&#xA;Filter the features whose type is non-object in &amp;lsquo;all_features&amp;rsquo; (that is, numerical features) and standardize them</description>
+      <description>Import libraries # import libraries import numpy as np import pandas as pd import torch from torch import nn import matplotlib.pyplot as plt from torch.utils.data import DataLoader, TensorDataset Ingest data Raw data can be downloaded here.&#xA;train.csv test.csv # ingest data train_data = pd.read_csv(&amp;#34;house-price-data/train.csv&amp;#34;) test_data = pd.read_csv(&amp;#34;house-price-data/test.csv&amp;#34;) Data preprocessing We preprocess the data set first.&#xA;Numerical data standardization&#xA;Fill in or remove missing values&#xA;Filter the features whose type is non-object in &amp;ldquo;all_features&amp;rdquo; (that is, numerical features) and standardize them</description>
     </item>
   </channel>
 </rss>
