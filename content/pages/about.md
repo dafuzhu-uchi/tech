@@ -23,6 +23,15 @@ e.g. For \(i=1,\cdots,l\)
 $$
 \omega^{(i)}_n\leftarrow \omega^{(i)}_{n-1}-\alpha\cdot \nabla_{\omega^{(i)}}L(\omega^{(1)}_{n-1},\cdots,\omega^{(l)}_{n-1})
 $$
+
+```plain
+For \(i=1,\cdots,l\)
+
+$$
+\omega^{(i)}_n\leftarrow \omega^{(i)}_{n-1}-\alpha\cdot \nabla_{\omega^{(i)}}L(\omega^{(1)}_{n-1},\cdots,\omega^{(l)}_{n-1})
+$$
+```
+
 **Self learning materials**
 
-My self study documents are stored [here](https://workable-captain-f89.notion.site/18bcebd60bdb80328ab3fb4aa91f3c9b?v=18bcebd60bdb805f91fd000c06186310).
+My self study materials are stored [here](https://workable-captain-f89.notion.site/Study-Planner-154cebd60bdb808589a6f0ac5d13eda7).
